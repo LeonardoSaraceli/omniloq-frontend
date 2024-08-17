@@ -16,7 +16,9 @@ export default function EditItem() {
   })
 
   const handleOnChange = (e) => {
-    setMissingFields(false)
+    if (missingFields) {
+      setMissingFields(false)
+    }
 
     const { name, value } = e.target
 
@@ -80,7 +82,7 @@ export default function EditItem() {
           id="email"
           value={formData.email ? formData.email : ''}
           onChange={handleOnChange}
-          placeholder="(Optional)"
+          placeholder="(optional)"
           autoComplete="current-email"
         />
       </div>
@@ -94,7 +96,7 @@ export default function EditItem() {
           id="username"
           value={formData.username ? formData.username : ''}
           onChange={handleOnChange}
-          placeholder="(Optional)"
+          placeholder="(optional)"
           autoComplete="current-username"
         />
       </div>

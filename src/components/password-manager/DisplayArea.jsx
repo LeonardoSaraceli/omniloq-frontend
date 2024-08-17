@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { PasswordManagerContext } from '../PasswordManager'
 import { faFolder } from '@fortawesome/free-regular-svg-icons'
+import truncateString from './truncateString'
 
 export default function DisplayArea() {
   const {
@@ -24,6 +25,8 @@ export default function DisplayArea() {
     activeChest,
     chest,
     setChest,
+    setShowEditChest,
+    setShowDeleteChest,
   } = useContext(PasswordManagerContext)
 
   useEffect(() => {
@@ -160,7 +163,7 @@ export default function DisplayArea() {
             <div id="item-headline">
               <FontAwesomeIcon icon={faKey} id="item-avatar" />
 
-              <h2>{item.name}</h2>
+              <h2>{truncateString(item.name, 30)}</h2>
             </div>
 
             <ul>
@@ -168,7 +171,7 @@ export default function DisplayArea() {
                 <li className="element-info">
                   <span>E-mail</span>
 
-                  <p>{item.email}</p>
+                  <p>{truncateString(item.email, 40)}</p>
                 </li>
               )}
 
@@ -176,14 +179,14 @@ export default function DisplayArea() {
                 <li className="element-info">
                   <span>Username</span>
 
-                  <p>{item.username}</p>
+                  <p>{truncateString(item.username, 40)}</p>
                 </li>
               )}
 
               <li>
                 <span>Password</span>
 
-                <p>{decrypted}</p>
+                <p>{truncateString(decrypted, 40)}</p>
               </li>
 
               {item.websites && item.websites.length > 0 && (
@@ -191,7 +194,7 @@ export default function DisplayArea() {
                   <span>Websites</span>
 
                   {item.websites.map((website) => (
-                    <p key={website.id}>{website.url}</p>
+                    <p key={website.id}>{truncateString(website.url, 40)}</p>
                   ))}
                 </li>
               )}
@@ -203,13 +206,13 @@ export default function DisplayArea() {
       {activeChest > 0 && (
         <div id="chest-display">
           <ul id="chest-actions">
-            <li>
+            <li onClick={() => setShowEditChest(true)}>
               <FontAwesomeIcon icon={faPen} className="action-icon" />
 
               <span>Edit</span>
             </li>
 
-            <li>
+            <li onClick={() => setShowDeleteChest(true)}>
               <FontAwesomeIcon icon={faTrashCan} className="action-icon" />
 
               <span>Delete</span>
@@ -223,15 +226,15 @@ export default function DisplayArea() {
               <h2>{chest.name}</h2>
             </div>
 
-            <ul>
-              {chest.description && (
+            {chest.description && (
+              <ul>
                 <li>
                   <span>Description</span>
 
                   <p>{chest.description}</p>
                 </li>
-              )}
-            </ul>
+              </ul>
+            )}
           </article>
         </div>
       )}

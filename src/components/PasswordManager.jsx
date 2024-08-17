@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom'
 import DeleteItem from './password-manager/DeleteItem'
 import CreateItem from './password-manager/CreateItem'
 import CreateChest from './password-manager/CreateChest'
+import EditChest from './password-manager/EditChest'
+import DeleteChest from './password-manager/DeleteChest'
+import CreateTicket from './password-manager/CreateTicket'
 
 export const PasswordManagerContext = createContext()
 
@@ -15,6 +18,9 @@ export default function PasswordManager() {
   const [showDeleteItem, setShowDeleteItem] = useState(false)
   const [showCreateItem, setShowCreateItem] = useState(false)
   const [showCreateChest, setShowCreateChest] = useState(false)
+  const [showEditChest, setShowEditChest] = useState(false)
+  const [showDeleteChest, setShowDeleteChest] = useState(false)
+  const [showCreateTicket, setShowCreateTicket] = useState(false)
   const [item, setItem] = useState({})
   const [chest, setChest] = useState({})
   const [activeCollection, setActiveCollection] = useState('All items')
@@ -95,13 +101,19 @@ export default function PasswordManager() {
         setActiveChest,
         chest,
         setChest,
+        setShowEditChest,
+        setShowDeleteChest,
+        setShowCreateTicket,
       }}
     >
       <div id="password-manager">
         {(showEditItem ||
           showDeleteItem ||
           showCreateItem ||
-          showCreateChest) && <div className="modal-active"></div>}
+          showCreateChest ||
+          showEditChest ||
+          showDeleteChest ||
+          showCreateTicket) && <div className="modal-active"></div>}
 
         <Aside />
 
@@ -115,6 +127,12 @@ export default function PasswordManager() {
       {showCreateItem && <CreateItem />}
 
       {showCreateChest && <CreateChest />}
+
+      {showEditChest && <EditChest />}
+
+      {showDeleteChest && <DeleteChest />}
+
+      {showCreateTicket && <CreateTicket />}
     </PasswordManagerContext.Provider>
   )
 }

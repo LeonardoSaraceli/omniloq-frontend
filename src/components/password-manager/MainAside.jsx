@@ -2,6 +2,7 @@ import { faKey, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import truncateString from './truncateString'
 
 export default function MainAside() {
   const { items, setActiveItem, activeCollection } = useContext(
@@ -46,7 +47,7 @@ export default function MainAside() {
           allItemsSearch.map((item) => (
             <li key={item.id} onClick={() => setActiveItem(item.id)}>
               <FontAwesomeIcon icon={faKey} className="item-icon" />
-              <span>{item.name}</span>
+              <span>{truncateString(item.name, 20)}</span>
             </li>
           ))}
 
@@ -54,7 +55,7 @@ export default function MainAside() {
           favourites.map((item) => (
             <li key={item.id} onClick={() => setActiveItem(item.id)}>
               <FontAwesomeIcon icon={faKey} className="item-icon" />
-              <span>{item.name}</span>
+              <span>{truncateString(item.name, 20)}</span>
             </li>
           ))}
 
@@ -63,7 +64,7 @@ export default function MainAside() {
           chestItems.map((item) => (
             <li key={item.id} onClick={() => setActiveItem(item.id)}>
               <FontAwesomeIcon icon={faKey} className="item-icon" />
-              <span>{item.name}</span>
+              <span>{truncateString(item.name, 20)}</span>
             </li>
           ))}
       </ul>

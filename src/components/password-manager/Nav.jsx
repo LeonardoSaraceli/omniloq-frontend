@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { PasswordManagerContext } from '../PasswordManager'
+import truncateString from './truncateString'
 
 export default function Nav() {
-  const { setActiveCollection, setShowCreateChest, setActiveChest } = useContext(
-    PasswordManagerContext
-  )
+  const { setActiveCollection, setShowCreateChest, setActiveChest } =
+    useContext(PasswordManagerContext)
 
   const token = localStorage.getItem('jwt')
 
@@ -59,10 +59,16 @@ export default function Nav() {
           </div>
 
           {chests.map((chest) => (
-            <li onClick={() => [setActiveCollection(chest.name), setActiveChest(chest.id)]} key={chest.id}>
+            <li
+              onClick={() => [
+                setActiveCollection(chest.name),
+                setActiveChest(chest.id),
+              ]}
+              key={chest.id}
+            >
               <FontAwesomeIcon icon={faFolder} className="nav-icon" />
 
-              <span>{chest.name}</span>
+              <span>{truncateString(chest.name, 30)}</span>
             </li>
           ))}
         </ul>
