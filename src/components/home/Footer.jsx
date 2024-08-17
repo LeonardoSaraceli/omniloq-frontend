@@ -1,7 +1,7 @@
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function HomeFooter() {
+export default function Footer() {
   return (
     <footer>
       <button>

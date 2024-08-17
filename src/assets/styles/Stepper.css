@@ -1,6 +1,6 @@
 #stepper {
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 25% 75%;
   position: relative;
   height: 100vh;
 
@@ -163,7 +163,7 @@
 
   #logo-stepper {
     position: absolute;
-    left: 26.4%;
+    left: 21.25%;
     z-index: 1;
     align-self: center;
     height: 100px;

@@ -1,7 +1,7 @@
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function HomeHeader() {
+export default function Header() {
   return (
     <header>
       <nav>
@@ -34,7 +34,7 @@ export default function HomeHeader() {
 
       <div>
         <a href="/login">
-          <span id='login'>Log in</span>
+          <span id="login">Log in</span>
         </a>
 
         <a href="/register">
