@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
 
 export default function CreateItem() {
-  const { token, setShowCreateItem } = useContext(PasswordManagerContext)
+  const { token, setShowCreateItem, fetchItems } = useContext(
+    PasswordManagerContext
+  )
 
   const [missingFields, setMissingFields] = useState(false)
 
@@ -47,7 +49,10 @@ export default function CreateItem() {
         return
       }
 
-      setShowCreateItem(false)
+      res.json().then(() => {
+        setShowCreateItem(false)
+        fetchItems()
+      })
     })
   }
 

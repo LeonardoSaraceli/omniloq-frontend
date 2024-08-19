@@ -2,9 +2,14 @@ import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function DeleteChest() {
-  const { chest, token, setShowDeleteChest } = useContext(
-    PasswordManagerContext
-  )
+  const {
+    chest,
+    token,
+    setShowDeleteChest,
+    fetchChests,
+    setActiveChest,
+    setActiveCollection,
+  } = useContext(PasswordManagerContext)
 
   const handleDeleteChest = () => {
     fetch(`http://localhost:3030/chests/${chest.id}`, {
@@ -18,7 +23,12 @@ export default function DeleteChest() {
         return
       }
 
-      setShowDeleteChest(false)
+      res.json().then(() => {
+        fetchChests()
+        setActiveChest(0)
+        setActiveCollection('All items')
+        setShowDeleteChest(false)
+      })
     })
   }
 

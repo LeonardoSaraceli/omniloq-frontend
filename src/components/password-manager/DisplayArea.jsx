@@ -27,6 +27,7 @@ export default function DisplayArea() {
     setChest,
     setShowEditChest,
     setShowDeleteChest,
+    fetchItems,
   } = useContext(PasswordManagerContext)
 
   useEffect(() => {
@@ -70,6 +71,7 @@ export default function DisplayArea() {
       })
       .then((data) => {
         setItem(data.item)
+        fetchItems()
       })
   }
 
@@ -94,6 +96,7 @@ export default function DisplayArea() {
       })
       .then((data) => {
         setItem(data.item)
+        fetchItems()
       })
   }
 

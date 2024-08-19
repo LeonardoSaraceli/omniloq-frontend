@@ -11,6 +11,7 @@ export default function EditItemFeatures() {
     setShowEditItemFeatures,
     setShowAddWebsite,
     setShowAddToChest,
+    fetchItem,
   } = useContext(PasswordManagerContext)
 
   const handleWebsiteDelete = (websiteId) => {
@@ -24,6 +25,10 @@ export default function EditItemFeatures() {
       if (!res.ok) {
         return
       }
+
+      res.json().then(() => {
+        fetchItem()
+      })
     })
   }
 
@@ -41,6 +46,10 @@ export default function EditItemFeatures() {
       if (!res.ok) {
         return
       }
+
+      res.json().then(() => {
+        fetchItem()
+      })
     })
   }
 

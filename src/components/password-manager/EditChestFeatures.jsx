@@ -5,8 +5,14 @@ import { PasswordManagerContext } from '../PasswordManager'
 import { useContext } from 'react'
 
 export default function EditChestFeatures() {
-  const { token, chest, setShowEditChestFeatures, setShowAddFromChest } =
-    useContext(PasswordManagerContext)
+  const {
+    token,
+    chest,
+    setShowEditChestFeatures,
+    setShowAddFromChest,
+    fetchChest,
+    fetchItems,
+  } = useContext(PasswordManagerContext)
 
   const handleItemRemove = (itemId) => {
     fetch(`http://localhost:3030/chests/remove-item/${itemId}`, {
@@ -22,6 +28,11 @@ export default function EditChestFeatures() {
       if (!res.ok) {
         return
       }
+
+      res.json().then(() => {
+        fetchItems()
+        fetchChest()
+      })
     })
   }
 

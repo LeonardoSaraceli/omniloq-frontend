@@ -2,7 +2,8 @@ import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function DeleteItem() {
-  const { item, token, setShowDeleteItem } = useContext(PasswordManagerContext)
+  const { item, token, setShowDeleteItem, fetchItems, setActiveItem } =
+    useContext(PasswordManagerContext)
 
   const handleDeleteItem = () => {
     fetch(`http://localhost:3030/items/${item.id}`, {
@@ -16,7 +17,11 @@ export default function DeleteItem() {
         return
       }
 
-      setShowDeleteItem(false)
+      res.json().then(() => {
+        setShowDeleteItem(false)
+        setActiveItem(0)
+        fetchItems()
+      })
     })
   }
 

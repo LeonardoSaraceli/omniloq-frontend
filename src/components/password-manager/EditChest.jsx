@@ -2,8 +2,13 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function EditChest() {
-  const { token, chest, setShowEditChest, setShowEditChestFeatures } =
-    useContext(PasswordManagerContext)
+  const {
+    token,
+    chest,
+    setShowEditChest,
+    setShowEditChestFeatures,
+    fetchChest,
+  } = useContext(PasswordManagerContext)
 
   const [formData, setFormData] = useState({
     name: chest.name,
@@ -43,7 +48,11 @@ export default function EditChest() {
         setMissingFields(true)
         return
       }
-      setShowEditChest(false)
+
+      res.json().then(() => {
+        fetchChest()
+        setShowEditChest(false)
+      })
     })
   }
 

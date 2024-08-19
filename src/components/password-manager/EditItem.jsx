@@ -2,8 +2,14 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function EditItem() {
-  const { token, item, setShowEditItem, decrypted, setShowEditItemFeatures } =
-    useContext(PasswordManagerContext)
+  const {
+    token,
+    item,
+    setShowEditItem,
+    decrypted,
+    setShowEditItemFeatures,
+    fetchItem,
+  } = useContext(PasswordManagerContext)
 
   const [missingFields, setMissingFields] = useState(false)
 
@@ -47,7 +53,11 @@ export default function EditItem() {
         setMissingFields(true)
         return
       }
-      setShowEditItem(false)
+
+      res.json().then(() => {
+        setShowEditItem(false)
+        fetchItem()
+      })
     })
   }
 

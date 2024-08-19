@@ -1,7 +1,7 @@
 import Aside from './password-manager/Aside'
 import Main from './password-manager/Main'
 import '../assets/styles/PasswordManager.css'
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useCallback } from 'react'
 import EditItem from './password-manager/EditItem'
 import { useNavigate } from 'react-router-dom'
 import DeleteItem from './password-manager/DeleteItem'
@@ -87,6 +87,45 @@ export default function PasswordManager() {
       .then((data) => setItems(data.items))
   }, [navigate, token])
 
+  const fetchItems = useCallback(() => {
+    fetch('http://localhost:3030/items/', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          navigate('/')
+          return
+        }
+        return res.json()
+      })
+      .then((data) => setItems(data.items))
+  }, [token, navigate])
+
+  useEffect(() => {
+    fetchItems()
+  }, [fetchItems])
+
+  const fetchChests = useCallback(() => {
+    fetch('http://localhost:3030/chests/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          navigate('/')
+        }
+
+        return res.json()
+      })
+      .then((data) => setChests(data.chests))
+  }, [navigate, token])
+
+  useEffect(() => {
+    fetchChests()
+  }, [fetchChests])
+
   useEffect(() => {
     if (!item.password) {
       return
@@ -105,6 +144,55 @@ export default function PasswordManager() {
       .then((res) => res.json())
       .then((data) => setDecrypted(data.decrypted))
   }, [item, item.password, token])
+
+  const fetchItem = useCallback(() => {
+    if (activeItem === 0) {
+      return
+    }
+
+    fetch(`http://localhost:3030/items/${activeItem}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (res.status === 404) {
+          return
+        }
+
+        return res.json()
+      })
+      .then((data) => {
+        setItem(data.item)
+      })
+  }, [activeItem, token])
+
+  useEffect(() => {
+    fetchItem()
+  }, [fetchItem])
+
+  const fetchChest = useCallback(() => {
+    if (activeChest === 0) {
+      return
+    }
+
+    fetch(`http://localhost:3030/chests/${activeChest}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 404) {
+          return
+        }
+
+        return res.json()
+      })
+      .then((data) => setChest(data.chest))
+  }, [activeChest, token])
+
+  useEffect(() => {
+    fetchChest()
+  }, [fetchChest])
 
   useEffect(() => {
     if (activeItem > 0) {
@@ -197,6 +285,10 @@ export default function PasswordManager() {
         setShowManageAccount,
         setShowEditProfile,
         setShowDeleteAccount,
+        fetchItems,
+        fetchChests,
+        fetchItem,
+        fetchChest,
       }}
     >
       <div id="password-manager">

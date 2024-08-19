@@ -4,7 +4,9 @@ import { PasswordManagerContext } from '../PasswordManager'
 import { useContext, useState } from 'react'
 
 export default function CreateChest() {
-  const { token, setShowCreateChest } = useContext(PasswordManagerContext)
+  const { token, setShowCreateChest, fetchChests } = useContext(
+    PasswordManagerContext
+  )
 
   const [formData, setFormData] = useState({
     name: '',
@@ -38,7 +40,10 @@ export default function CreateChest() {
         return
       }
 
-      setShowCreateChest(false)
+      res.json().then(() => {
+        setShowCreateChest(false)
+        fetchChests()
+      })
     })
   }
 

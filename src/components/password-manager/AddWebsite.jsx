@@ -2,7 +2,9 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function AddWebsite() {
-  const { token, item, setShowAddWebsite } = useContext(PasswordManagerContext)
+  const { token, item, setShowAddWebsite, fetchItem } = useContext(
+    PasswordManagerContext
+  )
 
   const [url, setUrl] = useState('')
 
@@ -28,7 +30,10 @@ export default function AddWebsite() {
         return
       }
 
-      setShowAddWebsite(false)
+      res.json().then(() => {
+        setShowAddWebsite(false)
+        fetchItem()
+      })
     })
   }
 
