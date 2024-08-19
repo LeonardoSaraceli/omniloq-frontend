@@ -2,9 +2,8 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function AddToChest() {
-  const { chests, token, item, setShowAddToChest, fetchItem } = useContext(
-    PasswordManagerContext
-  )
+  const { chests, token, item, setShowAddToChest, fetchItem, fetchItems } =
+    useContext(PasswordManagerContext)
 
   const chestsAvailables = chests.filter(
     (chest) => !item.chests.some((itemChest) => itemChest.id === chest.id)
@@ -37,6 +36,7 @@ export default function AddToChest() {
 
       res.json().then(() => {
         setShowAddToChest(false)
+        fetchItems()
         fetchItem()
       })
     })

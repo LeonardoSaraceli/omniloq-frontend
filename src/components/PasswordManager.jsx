@@ -1,7 +1,7 @@
 import Aside from './password-manager/Aside'
 import Main from './password-manager/Main'
 import '../assets/styles/PasswordManager.css'
-import { createContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useState, useEffect, useCallback, useRef } from 'react'
 import EditItem from './password-manager/EditItem'
 import { useNavigate } from 'react-router-dom'
 import DeleteItem from './password-manager/DeleteItem'
@@ -50,6 +50,8 @@ export default function PasswordManager() {
   const [showManageAccount, setShowManageAccount] = useState(false)
   const [showEditProfile, setShowEditProfile] = useState(false)
   const [showDeleteAccount, setShowDeleteAccount] = useState(false)
+
+  const modalRef = useRef(null)
 
   const navigate = useNavigate()
 
@@ -240,11 +242,48 @@ export default function PasswordManager() {
       .then((data) => setProfile(data.profile))
   }, [token])
 
+  const fetchProfile = useCallback(() => {
+    fetch('http://localhost:3030/profile/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return
+        }
+
+        return res.json()
+      })
+      .then((data) => setProfile(data.profile))
+  }, [token])
+
+  useEffect(() => {
+    fetchProfile()
+  }, [fetchProfile])
+
   useEffect(() => {
     if (showSettings || showManageAccount) {
       setShowMenuAccount(false)
     }
   }, [showManageAccount, showSettings])
+
+  useEffect(() => {
+    const account = document.getElementById('account')
+
+    function handleClickOutside(event) {
+      if (modalRef.current && !modalRef.current.contains(event.target) && !account.contains(event.target)) {
+        setShowMenuAccount(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   return (
     <PasswordManagerContext.Provider
@@ -289,6 +328,8 @@ export default function PasswordManager() {
         fetchChests,
         fetchItem,
         fetchChest,
+        fetchProfile,
+        modalRef,
       }}
     >
       <div id="password-manager">

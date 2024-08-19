@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function EditProfile() {
-  const { token, profile, setShowEditProfile } = useContext(
+  const { token, profile, setShowEditProfile, fetchProfile } = useContext(
     PasswordManagerContext
   )
 
@@ -38,7 +38,10 @@ export default function EditProfile() {
         return
       }
 
-      setShowEditProfile(false)
+      res.json().then(() => {
+        fetchProfile()
+        setShowEditProfile(false)
+      })
     })
   }
 
@@ -49,7 +52,7 @@ export default function EditProfile() {
 
         <input
           type="text"
-          name='first_name'
+          name="first_name"
           id="first_name"
           value={formData.first_name}
           onChange={handleOnChange}
@@ -62,7 +65,7 @@ export default function EditProfile() {
 
         <input
           type="text"
-          name='last_name'
+          name="last_name"
           id="last_name"
           value={formData.last_name}
           onChange={handleOnChange}
