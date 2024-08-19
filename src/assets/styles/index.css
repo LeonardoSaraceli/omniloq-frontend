@@ -32,4 +32,8 @@ body {
 
 #root {
   display: grid;
+
+  select {
+    appearance: none;
+  }
 }

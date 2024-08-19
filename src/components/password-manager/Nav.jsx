@@ -1,34 +1,20 @@
 import { faFolder, faStar } from '@fortawesome/free-regular-svg-icons'
-import { faAngleDown, faPlus, faVault } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAngleDown,
+  faAngleUp,
+  faPlus,
+  faVault,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 import truncateString from './truncateString'
 
 export default function Nav() {
-  const { setActiveCollection, setShowCreateChest, setActiveChest } =
+  const { chests, setActiveCollection, setShowCreateChest, setActiveChest } =
     useContext(PasswordManagerContext)
 
-  const token = localStorage.getItem('jwt')
-
-  const navigate = useNavigate()
-
-  const [chests, setChests] = useState([])
-
-  useEffect(() => {
-    fetch('http://localhost:3030/chests/', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        if (res.status === 401) {
-          navigate('/')
-        }
-
-        return res.json()
-      })
-      .then((data) => setChests(data.chests))
-  }, [token, navigate])
+  const [showChests, setShowChests] = useState(true)
 
   return (
     <nav id="password-manager-nav">
@@ -47,7 +33,11 @@ export default function Nav() {
 
         <ul>
           <div id="nav-chests">
-            <FontAwesomeIcon icon={faAngleDown} className="chest-icon" />
+            <FontAwesomeIcon
+              icon={showChests ? faAngleDown : faAngleUp}
+              className="chest-icon"
+              onClick={() => setShowChests(!showChests)}
+            />
 
             <span>Chests</span>
 
@@ -58,19 +48,20 @@ export default function Nav() {
             />
           </div>
 
-          {chests.map((chest) => (
-            <li
-              onClick={() => [
-                setActiveCollection(chest.name),
-                setActiveChest(chest.id),
-              ]}
-              key={chest.id}
-            >
-              <FontAwesomeIcon icon={faFolder} className="nav-icon" />
+          {showChests &&
+            chests.map((chest) => (
+              <li
+                onClick={() => [
+                  setActiveCollection(chest.name),
+                  setActiveChest(chest.id),
+                ]}
+                key={chest.id}
+              >
+                <FontAwesomeIcon icon={faFolder} className="nav-icon" />
 
-              <span>{truncateString(chest.name, 30)}</span>
-            </li>
-          ))}
+                <span>{truncateString(chest.name, 30)}</span>
+              </li>
+            ))}
         </ul>
       </ul>
     </nav>

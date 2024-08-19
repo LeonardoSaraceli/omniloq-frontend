@@ -2,7 +2,8 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function EditChest() {
-  const { token, chest, setShowEditChest } = useContext(PasswordManagerContext)
+  const { token, chest, setShowEditChest, setShowEditChestFeatures } =
+    useContext(PasswordManagerContext)
 
   const [formData, setFormData] = useState({
     name: chest.name,
@@ -84,7 +85,11 @@ export default function EditChest() {
           Cancel
         </button>
 
-        <button type="submit" id="edit">
+        <button
+          type="submit"
+          id="edit"
+          onClick={() => setShowEditChestFeatures(true)}
+        >
           Save
         </button>
       </div>

@@ -10,10 +10,19 @@ import CreateChest from './password-manager/CreateChest'
 import EditChest from './password-manager/EditChest'
 import DeleteChest from './password-manager/DeleteChest'
 import CreateTicket from './password-manager/CreateTicket'
+import EditItemFeatures from './password-manager/EditItemFeatures'
+import AddWebsite from './password-manager/AddWebsite'
+import AddToChest from './password-manager/AddToChest'
+import EditChestFeatures from './password-manager/EditChestFeatures'
+import AddFromChest from './password-manager/AddFromChest'
+import Settings from './password-manager/Settings'
 
 export const PasswordManagerContext = createContext()
 
 export default function PasswordManager() {
+  const [user, setUser] = useState({})
+  const [profile, setProfile] = useState({})
+  const [chests, setChests] = useState([])
   const [showEditItem, setShowEditItem] = useState(false)
   const [showDeleteItem, setShowDeleteItem] = useState(false)
   const [showCreateItem, setShowCreateItem] = useState(false)
@@ -21,6 +30,11 @@ export default function PasswordManager() {
   const [showEditChest, setShowEditChest] = useState(false)
   const [showDeleteChest, setShowDeleteChest] = useState(false)
   const [showCreateTicket, setShowCreateTicket] = useState(false)
+  const [showEditItemFeatures, setShowEditItemFeatures] = useState(false)
+  const [showAddWebsite, setShowAddWebsite] = useState(false)
+  const [showAddToChest, setShowAddToChest] = useState(false)
+  const [showEditChestFeatures, setShowEditChestFeatures] = useState(false)
+  const [showAddFromChest, setShowAddFromChest] = useState(false)
   const [item, setItem] = useState({})
   const [chest, setChest] = useState({})
   const [activeCollection, setActiveCollection] = useState('All items')
@@ -28,10 +42,29 @@ export default function PasswordManager() {
   const [activeItem, setActiveItem] = useState(0)
   const [activeChest, setActiveChest] = useState(0)
   const [decrypted, setDecrypted] = useState('')
+  const [showMenuAccount, setShowMenuAccount] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
 
   const navigate = useNavigate()
 
   const token = localStorage.getItem('jwt')
+
+  useEffect(() => {
+    fetch('http://localhost:3030/chests/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          navigate('/')
+        }
+
+        return res.json()
+      })
+      .then((data) => setChests(data.chests))
+  }, [token, navigate])
 
   useEffect(() => {
     fetch('http://localhost:3030/items/', {
@@ -79,9 +112,52 @@ export default function PasswordManager() {
     }
   }, [activeChest])
 
+  useEffect(() => {
+    fetch('http://localhost:3030/users/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return
+        }
+
+        return res.json()
+      })
+      .then((data) => setUser(data.user))
+  }, [token])
+
+  useEffect(() => {
+    fetch('http://localhost:3030/profile/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return
+        }
+
+        return res.json()
+      })
+      .then((data) => setProfile(data.profile))
+  }, [token])
+
+  useEffect(() => {
+    if (showSettings) {
+      setShowMenuAccount(false)
+    }
+  }, [showSettings])
+
   return (
     <PasswordManagerContext.Provider
       value={{
+        user,
+        profile,
+        chests,
         activeCollection,
         setActiveCollection,
         showEditItem,
@@ -104,6 +180,14 @@ export default function PasswordManager() {
         setShowEditChest,
         setShowDeleteChest,
         setShowCreateTicket,
+        setShowEditItemFeatures,
+        setShowAddWebsite,
+        setShowAddToChest,
+        setShowEditChestFeatures,
+        setShowAddFromChest,
+        showMenuAccount,
+        setShowMenuAccount,
+        setShowSettings,
       }}
     >
       <div id="password-manager">
@@ -113,7 +197,14 @@ export default function PasswordManager() {
           showCreateChest ||
           showEditChest ||
           showDeleteChest ||
-          showCreateTicket) && <div className="modal-active"></div>}
+          showCreateTicket ||
+          showEditItemFeatures ||
+          showEditChestFeatures ||
+          showSettings) && <div className="modal-active"></div>}
+
+        {(showAddWebsite || showAddToChest || showAddFromChest) && (
+          <div className="modal-above-active"></div>
+        )}
 
         <Aside />
 
@@ -133,6 +224,18 @@ export default function PasswordManager() {
       {showDeleteChest && <DeleteChest />}
 
       {showCreateTicket && <CreateTicket />}
+
+      {showEditItemFeatures && <EditItemFeatures />}
+
+      {showAddWebsite && <AddWebsite />}
+
+      {showAddToChest && <AddToChest />}
+
+      {showEditChestFeatures && <EditChestFeatures />}
+
+      {showAddFromChest && <AddFromChest />}
+
+      {showSettings && <Settings />}
     </PasswordManagerContext.Provider>
   )
 }

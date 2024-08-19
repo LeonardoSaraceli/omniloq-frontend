@@ -2,9 +2,8 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function EditItem() {
-  const { token, item, setShowEditItem, decrypted } = useContext(
-    PasswordManagerContext
-  )
+  const { token, item, setShowEditItem, decrypted, setShowEditItemFeatures } =
+    useContext(PasswordManagerContext)
 
   const [missingFields, setMissingFields] = useState(false)
 
@@ -120,7 +119,11 @@ export default function EditItem() {
           Cancel
         </button>
 
-        <button type="submit" id="edit">
+        <button
+          type="submit"
+          id="edit"
+          onClick={() => setShowEditItemFeatures(true)}
+        >
           Save
         </button>
       </div>
