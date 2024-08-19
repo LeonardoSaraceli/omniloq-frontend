@@ -2,11 +2,13 @@ import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function MenuAccount() {
-  const { setShowSettings } = useContext(PasswordManagerContext)
+  const { setShowSettings, setShowManageAccount } = useContext(
+    PasswordManagerContext
+  )
 
   return (
     <div id="menu-account">
-      <span>Manage account</span>
+      <span onClick={() => setShowManageAccount(true)}>Manage account</span>
 
       <div id="divisor"></div>
 

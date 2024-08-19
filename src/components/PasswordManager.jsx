@@ -16,6 +16,9 @@ import AddToChest from './password-manager/AddToChest'
 import EditChestFeatures from './password-manager/EditChestFeatures'
 import AddFromChest from './password-manager/AddFromChest'
 import Settings from './password-manager/Settings'
+import ManageAccount from './password-manager/ManageAccount'
+import EditProfile from './password-manager/EditProfile'
+import DeleteAccount from './password-manager/DeleteAccounts'
 
 export const PasswordManagerContext = createContext()
 
@@ -44,6 +47,9 @@ export default function PasswordManager() {
   const [decrypted, setDecrypted] = useState('')
   const [showMenuAccount, setShowMenuAccount] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [showManageAccount, setShowManageAccount] = useState(false)
+  const [showEditProfile, setShowEditProfile] = useState(false)
+  const [showDeleteAccount, setShowDeleteAccount] = useState(false)
 
   const navigate = useNavigate()
 
@@ -147,10 +153,10 @@ export default function PasswordManager() {
   }, [token])
 
   useEffect(() => {
-    if (showSettings) {
+    if (showSettings || showManageAccount) {
       setShowMenuAccount(false)
     }
-  }, [showSettings])
+  }, [showManageAccount, showSettings])
 
   return (
     <PasswordManagerContext.Provider
@@ -188,6 +194,9 @@ export default function PasswordManager() {
         showMenuAccount,
         setShowMenuAccount,
         setShowSettings,
+        setShowManageAccount,
+        setShowEditProfile,
+        setShowDeleteAccount,
       }}
     >
       <div id="password-manager">
@@ -200,11 +209,14 @@ export default function PasswordManager() {
           showCreateTicket ||
           showEditItemFeatures ||
           showEditChestFeatures ||
-          showSettings) && <div className="modal-active"></div>}
+          showSettings ||
+          showManageAccount) && <div className="modal-active"></div>}
 
-        {(showAddWebsite || showAddToChest || showAddFromChest) && (
-          <div className="modal-above-active"></div>
-        )}
+        {(showAddWebsite ||
+          showAddToChest ||
+          showAddFromChest ||
+          showEditProfile ||
+          showDeleteAccount) && <div className="modal-above-active"></div>}
 
         <Aside />
 
@@ -236,6 +248,12 @@ export default function PasswordManager() {
       {showAddFromChest && <AddFromChest />}
 
       {showSettings && <Settings />}
+
+      {showManageAccount && <ManageAccount />}
+
+      {showEditProfile && <EditProfile />}
+
+      {showDeleteAccount && <DeleteAccount />}
     </PasswordManagerContext.Provider>
   )
 }
