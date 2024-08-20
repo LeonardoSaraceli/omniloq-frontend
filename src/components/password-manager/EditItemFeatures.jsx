@@ -13,6 +13,7 @@ export default function EditItemFeatures() {
     setShowAddWebsite,
     setShowAddToChest,
     fetchItem,
+    fetchItems,
   } = useContext(PasswordManagerContext)
 
   const handleWebsiteDelete = (websiteId) => {
@@ -50,6 +51,7 @@ export default function EditItemFeatures() {
 
       res.json().then(() => {
         fetchItem()
+        fetchItems()
       })
     })
   }
@@ -66,7 +68,7 @@ export default function EditItemFeatures() {
         <span id="label">Websites</span>
 
         <ul>
-          {item &&
+          {item.websites &&
             item.websites.map((website) => (
               <li key={website.id}>
                 <FontAwesomeIcon
@@ -83,7 +85,7 @@ export default function EditItemFeatures() {
             <FontAwesomeIcon icon={faPlus} className="add-icon" />
 
             <span>
-              {item && item.websites.length > 0
+              {item.websites && item.websites.length > 0
                 ? 'add another website'
                 : 'add an website'}
             </span>
@@ -95,7 +97,7 @@ export default function EditItemFeatures() {
         <span id="label">Chests</span>
 
         <ul>
-          {item &&
+          {item.chests &&
             item.chests.map((chest) => (
               <li key={chest.id}>
                 <FontAwesomeIcon
@@ -112,7 +114,7 @@ export default function EditItemFeatures() {
             <FontAwesomeIcon icon={faPlus} className="add-icon" />
 
             <span>
-              {item && item.chests.length > 0
+              {item.chests && item.chests.length > 0
                 ? 'add to another chest'
                 : 'add to an chest'}
             </span>
