@@ -3,7 +3,7 @@ import { PasswordManagerContext } from '../PasswordManager'
 import { useNavigate } from 'react-router-dom'
 
 export default function DeleteAccount() {
-  const { token, setShowDeleteAccount } = useContext(PasswordManagerContext)
+  const { theme, token, setShowDeleteAccount } = useContext(PasswordManagerContext)
 
   const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ export default function DeleteAccount() {
   }
 
   return (
-    <div id="delete-account">
+    <div id="delete-account" className={theme}>
       <span>This action is irreversible, are you sure that want to do it?</span>
 
       <div id="buttons">

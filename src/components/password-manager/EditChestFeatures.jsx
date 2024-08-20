@@ -6,6 +6,7 @@ import { useContext } from 'react'
 
 export default function EditChestFeatures() {
   const {
+    theme,
     token,
     chest,
     setShowEditChestFeatures,
@@ -43,28 +44,31 @@ export default function EditChestFeatures() {
   }
 
   return (
-    <form id="edit-chest-features" onSubmit={handleOnSubmit}>
+    <form id="edit-chest-features" onSubmit={handleOnSubmit} className={theme}>
       <div className="edit-chest">
         <span id="label">Items</span>
 
         <ul>
-          {chest.items?.map((item) => (
-            <li key={item.id}>
-              <FontAwesomeIcon
-                icon={faTrashCan}
-                className="delete-icon"
-                onClick={() => handleItemRemove(item.id)}
-              />
+          {chest &&
+            chest.items.map((item) => (
+              <li key={item.id}>
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  className="delete-icon"
+                  onClick={() => handleItemRemove(item.id)}
+                />
 
-              <p>{item.name}</p>
-            </li>
-          ))}
+                <p>{item.name}</p>
+              </li>
+            ))}
 
           <div id="add" onClick={() => setShowAddFromChest(true)}>
             <FontAwesomeIcon icon={faPlus} className="add-icon" />
 
             <span>
-              {chest.items.length > 0 ? 'add another item' : 'add an item'}
+              {chest && chest.items.length > 0
+                ? 'add another item'
+                : 'add an item'}
             </span>
           </div>
         </ul>
@@ -75,7 +79,7 @@ export default function EditChestFeatures() {
           Cancel
         </button>
 
-        <button type="submit" id="edit">
+        <button type="submit" id="edit" className={theme}>
           Save
         </button>
       </div>

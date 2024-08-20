@@ -5,7 +5,7 @@ import { PasswordManagerContext } from '../PasswordManager'
 import truncateString from './truncateString'
 
 export default function MainAside() {
-  const { items, setActiveItem, activeCollection } = useContext(
+  const { theme, items, setActiveItem, activeCollection } = useContext(
     PasswordManagerContext
   )
   const [input, setInput] = useState('')
@@ -30,13 +30,14 @@ export default function MainAside() {
   )
 
   return (
-    <aside id="password-manager-main-aside">
-      <div id="search-items">
+    <aside id="password-manager-main-aside" className={theme}>
+      <div id="search-items" className={theme}>
         <FontAwesomeIcon icon={faMagnifyingGlass} id="search-icon" />
 
         <input
           type="search"
           placeholder={`Search in ${activeCollection}`}
+          className={theme}
           value={input}
           onChange={handleChange}
         />
@@ -45,16 +46,24 @@ export default function MainAside() {
       <ul>
         {activeCollection === 'All items' &&
           allItemsSearch.map((item) => (
-            <li key={item.id} onClick={() => setActiveItem(item.id)}>
-              <FontAwesomeIcon icon={faKey} className="item-icon" />
+            <li
+              className={theme}
+              key={item.id}
+              onClick={() => setActiveItem(item.id)}
+            >
+              <FontAwesomeIcon icon={faKey} className="item-icon" id={theme} />
               <span>{truncateString(item.name, 20)}</span>
             </li>
           ))}
 
         {activeCollection === 'Favourites' &&
           favourites.map((item) => (
-            <li key={item.id} onClick={() => setActiveItem(item.id)}>
-              <FontAwesomeIcon icon={faKey} className="item-icon" />
+            <li
+              className={theme}
+              key={item.id}
+              onClick={() => setActiveItem(item.id)}
+            >
+              <FontAwesomeIcon icon={faKey} className="item-icon" id={theme} />
               <span>{truncateString(item.name, 20)}</span>
             </li>
           ))}
@@ -62,8 +71,12 @@ export default function MainAside() {
         {activeCollection !== 'All items' &&
           activeCollection !== 'Favourites' &&
           chestItems.map((item) => (
-            <li key={item.id} onClick={() => setActiveItem(item.id)}>
-              <FontAwesomeIcon icon={faKey} className="item-icon" />
+            <li
+              className={theme}
+              key={item.id}
+              onClick={() => setActiveItem(item.id)}
+            >
+              <FontAwesomeIcon icon={faKey} className="item-icon" id={theme} />
               <span>{truncateString(item.name, 20)}</span>
             </li>
           ))}

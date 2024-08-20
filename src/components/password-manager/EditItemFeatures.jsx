@@ -6,6 +6,7 @@ import { useContext } from 'react'
 
 export default function EditItemFeatures() {
   const {
+    theme,
     token,
     item,
     setShowEditItemFeatures,
@@ -60,28 +61,29 @@ export default function EditItemFeatures() {
   }
 
   return (
-    <form id="edit-item-features" onSubmit={handleOnSubmit}>
+    <form id="edit-item-features" onSubmit={handleOnSubmit} className={theme}>
       <div className="edit-item">
         <span id="label">Websites</span>
 
         <ul>
-          {item.websites?.map((website) => (
-            <li key={website.id}>
-              <FontAwesomeIcon
-                icon={faTrashCan}
-                className="delete-icon"
-                onClick={() => handleWebsiteDelete(website.id)}
-              />
+          {item &&
+            item.websites.map((website) => (
+              <li key={website.id}>
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  className="delete-icon"
+                  onClick={() => handleWebsiteDelete(website.id)}
+                />
 
-              <p>{website.url}</p>
-            </li>
-          ))}
+                <p>{website.url}</p>
+              </li>
+            ))}
 
           <div id="add" onClick={() => setShowAddWebsite(true)}>
             <FontAwesomeIcon icon={faPlus} className="add-icon" />
 
             <span>
-              {item.websites.length > 0
+              {item && item.websites.length > 0
                 ? 'add another website'
                 : 'add an website'}
             </span>
@@ -93,23 +95,24 @@ export default function EditItemFeatures() {
         <span id="label">Chests</span>
 
         <ul>
-          {item.chests?.map((chest) => (
-            <li key={chest.id}>
-              <FontAwesomeIcon
-                icon={faTrashCan}
-                className="delete-icon"
-                onClick={() => handleChestRemove(chest.id)}
-              />
+          {item &&
+            item.chests.map((chest) => (
+              <li key={chest.id}>
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  className="delete-icon"
+                  onClick={() => handleChestRemove(chest.id)}
+                />
 
-              <p>{chest.name}</p>
-            </li>
-          ))}
+                <p>{chest.name}</p>
+              </li>
+            ))}
 
           <div id="add" onClick={() => setShowAddToChest(true)}>
             <FontAwesomeIcon icon={faPlus} className="add-icon" />
 
             <span>
-              {item.chests.length > 0
+              {item && item.chests.length > 0
                 ? 'add to another chest'
                 : 'add to an chest'}
             </span>
@@ -122,7 +125,7 @@ export default function EditItemFeatures() {
           Cancel
         </button>
 
-        <button type="submit" id="edit">
+        <button type="submit" id="edit" className={theme}>
           Save
         </button>
       </div>

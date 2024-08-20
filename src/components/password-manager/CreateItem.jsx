@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
 
 export default function CreateItem() {
-  const { token, setShowCreateItem, fetchItems } = useContext(
+  const { theme, token, setShowCreateItem, fetchItems } = useContext(
     PasswordManagerContext
   )
 
@@ -57,9 +57,9 @@ export default function CreateItem() {
   }
 
   return (
-    <section id="create-item-modal">
+    <section id="create-item-modal" className={theme}>
       <div id="item-name-avatar">
-        <FontAwesomeIcon icon={faKey} className="avatar-item-icon" />
+        <FontAwesomeIcon icon={faKey} className="avatar-item-icon" id={theme} />
 
         <h2>New item</h2>
       </div>
@@ -113,7 +113,7 @@ export default function CreateItem() {
             Cancel
           </button>
 
-          <button type="submit" id="create">
+          <button type="submit" id="create" className={theme}>
             Create
           </button>
         </div>

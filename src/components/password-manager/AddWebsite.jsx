@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function AddWebsite() {
-  const { token, item, setShowAddWebsite, fetchItem } = useContext(
+  const { theme, token, item, setShowAddWebsite, fetchItem } = useContext(
     PasswordManagerContext
   )
 
@@ -38,7 +38,7 @@ export default function AddWebsite() {
   }
 
   return (
-    <form id="add-website" onSubmit={handleOnSubmit}>
+    <form id="add-website" onSubmit={handleOnSubmit} className={theme}>
       <input
         type="text"
         placeholder="Url"
@@ -52,7 +52,7 @@ export default function AddWebsite() {
           Cancel
         </button>
 
-        <button type="submit" id="add">
+        <button type="submit" id="add" className={theme}>
           Add
         </button>
       </div>

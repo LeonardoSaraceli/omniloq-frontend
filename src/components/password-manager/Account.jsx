@@ -6,13 +6,17 @@ import { PasswordManagerContext } from '../PasswordManager'
 import truncateString from './truncateString'
 
 export default function Account() {
-  const { profile, showMenuAccount, setShowMenuAccount } = useContext(
+  const { theme, profile, showMenuAccount, setShowMenuAccount } = useContext(
     PasswordManagerContext
   )
 
   return (
-    <div id="account" onClick={() => setShowMenuAccount(!showMenuAccount)}>
-      <FontAwesomeIcon icon={faUser} id="avatar" />
+    <div
+      id="account"
+      className={theme}
+      onClick={() => setShowMenuAccount(!showMenuAccount)}
+    >
+      <FontAwesomeIcon icon={faUser} id="avatar" className={theme} />
 
       <span>{`${truncateString(
         `${profile.first_name} ${profile.last_name}`,

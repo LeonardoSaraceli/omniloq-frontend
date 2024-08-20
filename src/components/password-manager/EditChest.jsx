@@ -3,6 +3,7 @@ import { PasswordManagerContext } from '../PasswordManager'
 
 export default function EditChest() {
   const {
+    theme,
     token,
     chest,
     setShowEditChest,
@@ -57,7 +58,7 @@ export default function EditChest() {
   }
 
   return (
-    <form id="edit-chest" onSubmit={handleOnSubmit}>
+    <form id="edit-chest" onSubmit={handleOnSubmit} className={theme}>
       {missingFields && (
         <div className="error-message">
           <span>All required fields must be filled in.</span>
@@ -98,6 +99,7 @@ export default function EditChest() {
           type="submit"
           id="edit"
           onClick={() => setShowEditChestFeatures(true)}
+          className={theme}
         >
           Save
         </button>

@@ -4,7 +4,7 @@ import { PasswordManagerContext } from '../PasswordManager'
 import { useContext, useState } from 'react'
 
 export default function CreateChest() {
-  const { token, setShowCreateChest, fetchChests } = useContext(
+  const { theme, token, setShowCreateChest, fetchChests } = useContext(
     PasswordManagerContext
   )
 
@@ -48,9 +48,13 @@ export default function CreateChest() {
   }
 
   return (
-    <section id="create-chest-modal">
+    <section id="create-chest-modal" className={theme}>
       <div id="chest-name-avatar">
-        <FontAwesomeIcon icon={faFolder} className="avatar-chest-icon" />
+        <FontAwesomeIcon
+          icon={faFolder}
+          className="avatar-chest-icon"
+          id={theme}
+        />
 
         <h2>New chest</h2>
       </div>
@@ -77,7 +81,7 @@ export default function CreateChest() {
             Cancel
           </button>
 
-          <button type="submit" id="create">
+          <button type="submit" id="create" className={theme}>
             Create
           </button>
         </div>

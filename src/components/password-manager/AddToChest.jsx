@@ -2,8 +2,15 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function AddToChest() {
-  const { chests, token, item, setShowAddToChest, fetchItem, fetchItems } =
-    useContext(PasswordManagerContext)
+  const {
+    theme,
+    chests,
+    token,
+    item,
+    setShowAddToChest,
+    fetchItem,
+    fetchItems,
+  } = useContext(PasswordManagerContext)
 
   const chestsAvailables = chests.filter(
     (chest) => !item.chests.some((itemChest) => itemChest.id === chest.id)
@@ -43,7 +50,7 @@ export default function AddToChest() {
   }
 
   return (
-    <form id="add-chest" onSubmit={handleOnSubmit}>
+    <form id="add-chest" onSubmit={handleOnSubmit} className={theme}>
       <select
         name="chests"
         required
@@ -65,7 +72,12 @@ export default function AddToChest() {
           Cancel
         </button>
 
-        <button type="submit" id="add" disabled={chestsAvailables.length === 0}>
+        <button
+          type="submit"
+          id="add"
+          disabled={chestsAvailables.length === 0}
+          className={theme}
+        >
           Add
         </button>
       </div>

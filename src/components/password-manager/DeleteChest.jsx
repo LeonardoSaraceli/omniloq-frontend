@@ -3,6 +3,7 @@ import { PasswordManagerContext } from '../PasswordManager'
 
 export default function DeleteChest() {
   const {
+    theme,
     chest,
     token,
     setShowDeleteChest,
@@ -33,7 +34,7 @@ export default function DeleteChest() {
   }
 
   return (
-    <div id="delete-chest">
+    <div id="delete-chest" className={theme}>
       <span>This action is irreversible, are you sure that want to do it?</span>
 
       <div id="buttons">

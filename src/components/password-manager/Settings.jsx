@@ -1,31 +1,37 @@
 import { faCheck, faGear, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function Settings() {
-  const { setShowSettings } = useContext(PasswordManagerContext)
-
-  const [theme, setTheme] = useState('light')
-  const [language, setLanguage] = useState('en')
+  const { theme, setTheme, language, setLanguage, setShowSettings } =
+    useContext(PasswordManagerContext)
 
   return (
     <div id="settings">
-      <div id="nav-settings">
-        <div className="nav">
-          <FontAwesomeIcon icon={faGear} className="nav-settings-icon" />
+      <div id="nav-settings" className={theme}>
+        <div className="nav" id={theme}>
+          <FontAwesomeIcon
+            icon={faGear}
+            className="nav-settings-icon"
+            id={theme}
+          />
 
           <span className="headline">General</span>
         </div>
 
-        <div className="nav" onClick={() => setShowSettings(false)}>
-          <FontAwesomeIcon icon={faXmark} className="nav-settings-icon" />
+        <div className="nav" id={theme} onClick={() => setShowSettings(false)}>
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="nav-settings-icon"
+            id={theme}
+          />
 
           <span className="headline">Close</span>
         </div>
       </div>
 
-      <div id="display-settings">
+      <div id="display-settings" className={theme}>
         <div id="theme">
           <span className="headline">Theme</span>
 

@@ -3,6 +3,7 @@ import { PasswordManagerContext } from '../PasswordManager'
 
 export default function EditItem() {
   const {
+    theme,
     token,
     item,
     setShowEditItem,
@@ -62,7 +63,7 @@ export default function EditItem() {
   }
 
   return (
-    <form id="edit-item" onSubmit={handleOnSubmit}>
+    <form id="edit-item" onSubmit={handleOnSubmit} className={theme}>
       {missingFields && (
         <div className="error-message">
           <span>All required fields must be filled in.</span>
@@ -133,6 +134,7 @@ export default function EditItem() {
           type="submit"
           id="edit"
           onClick={() => setShowEditItemFeatures(true)}
+          className={theme}
         >
           Save
         </button>

@@ -11,21 +11,26 @@ import { PasswordManagerContext } from '../PasswordManager'
 import truncateString from './truncateString'
 
 export default function Nav() {
-  const { chests, setActiveCollection, setShowCreateChest, setActiveChest } =
-    useContext(PasswordManagerContext)
+  const {
+    theme,
+    chests,
+    setActiveCollection,
+    setShowCreateChest,
+    setActiveChest,
+  } = useContext(PasswordManagerContext)
 
   const [showChests, setShowChests] = useState(true)
 
   return (
-    <nav id="password-manager-nav">
+    <nav id="password-manager-nav" className={theme}>
       <ul>
-        <li onClick={() => setActiveCollection('All items')}>
+        <li className={theme} onClick={() => setActiveCollection('All items')}>
           <FontAwesomeIcon icon={faVault} className="nav-icon" />
 
           <span>All items</span>
         </li>
 
-        <li onClick={() => setActiveCollection('Favourites')}>
+        <li className={theme} onClick={() => setActiveCollection('Favourites')}>
           <FontAwesomeIcon icon={faStar} className="nav-icon" />
 
           <span>Favourites</span>
@@ -35,6 +40,7 @@ export default function Nav() {
           <div id="nav-chests">
             <FontAwesomeIcon
               icon={showChests ? faAngleDown : faAngleUp}
+              id={theme}
               className="chest-icon"
               onClick={() => setShowChests(!showChests)}
             />
@@ -43,6 +49,7 @@ export default function Nav() {
 
             <FontAwesomeIcon
               icon={faPlus}
+              id={theme}
               className="chest-icon"
               onClick={() => setShowCreateChest(true)}
             />
@@ -51,6 +58,7 @@ export default function Nav() {
           {showChests &&
             chests.map((chest) => (
               <li
+                className={theme}
                 onClick={() => [
                   setActiveCollection(chest.name),
                   setActiveChest(chest.id),

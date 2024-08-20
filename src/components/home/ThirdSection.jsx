@@ -90,10 +90,7 @@ export default function ThirdSection() {
           </div>
 
           {showThirdMessage && (
-            <p>
-              No, all your data is located on our servers, at this point we do
-              not use any cloud service to store it.
-            </p>
+            <p>Yes, all your data is located on our servers.</p>
           )}
 
           <div className="bottom-div"></div>

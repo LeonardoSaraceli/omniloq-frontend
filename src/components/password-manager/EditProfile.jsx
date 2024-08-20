@@ -2,9 +2,8 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function EditProfile() {
-  const { token, profile, setShowEditProfile, fetchProfile } = useContext(
-    PasswordManagerContext
-  )
+  const { theme, token, profile, setShowEditProfile, fetchProfile } =
+    useContext(PasswordManagerContext)
 
   const [formData, setFormData] = useState({
     first_name: profile.first_name,
@@ -46,7 +45,7 @@ export default function EditProfile() {
   }
 
   return (
-    <form id="edit-profile" onSubmit={handleOnSubmit}>
+    <form id="edit-profile" onSubmit={handleOnSubmit} className={theme}>
       <div className="profile-info">
         <label htmlFor="first_name">First name</label>
 
@@ -78,7 +77,7 @@ export default function EditProfile() {
           Cancel
         </button>
 
-        <button type="submit" id="edit">
+        <button type="submit" id="edit" className={theme}>
           Save
         </button>
       </div>

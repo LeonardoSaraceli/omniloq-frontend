@@ -4,7 +4,9 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function CreateTicket() {
-  const { token, setShowCreateTicket } = useContext(PasswordManagerContext)
+  const { theme, token, setShowCreateTicket } = useContext(
+    PasswordManagerContext
+  )
 
   const [formData, setFormData] = useState({
     title: '',
@@ -43,9 +45,13 @@ export default function CreateTicket() {
   }
 
   return (
-    <section id="create-ticket-modal">
+    <section id="create-ticket-modal" className={theme}>
       <div id="ticket-name-avatar">
-        <FontAwesomeIcon icon={faBug} className="avatar-ticket-icon" />
+        <FontAwesomeIcon
+          icon={faBug}
+          className="avatar-ticket-icon"
+          id={theme}
+        />
 
         <h2>New ticket</h2>
       </div>
@@ -73,7 +79,7 @@ export default function CreateTicket() {
             Cancel
           </button>
 
-          <button type="submit" id="create">
+          <button type="submit" id="create" className={theme}>
             Create
           </button>
         </div>

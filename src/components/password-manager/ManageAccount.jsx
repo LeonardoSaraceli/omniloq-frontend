@@ -12,6 +12,7 @@ export default function ManageAccount() {
   const [showMain, setShowMain] = useState('profile')
 
   const {
+    theme,
     user,
     profile,
     setShowManageAccount,
@@ -29,22 +30,22 @@ export default function ManageAccount() {
 
   return (
     <div id="manage-account">
-      <aside>
+      <aside className={theme}>
         <ul>
-          <li onClick={() => setShowMain('profile')}>
-            <FontAwesomeIcon icon={faUser} className="icon" />
+          <li className={theme} onClick={() => setShowMain('profile')}>
+            <FontAwesomeIcon icon={faUser} className="icon" id={theme} />
 
             <span>Profile</span>
           </li>
 
-          <li onClick={() => setShowMain('account')}>
-            <FontAwesomeIcon icon={faInfo} className="icon" />
+          <li className={theme} onClick={() => setShowMain('account')}>
+            <FontAwesomeIcon icon={faInfo} className="icon" id={theme} />
 
             <span>Account</span>
           </li>
 
-          <li onClick={() => setShowManageAccount(false)}>
-            <FontAwesomeIcon icon={faXmark} className="icon" />
+          <li className={theme} onClick={() => setShowManageAccount(false)}>
+            <FontAwesomeIcon icon={faXmark} className="icon" id={theme} />
 
             <span>Close</span>
           </li>
@@ -52,7 +53,7 @@ export default function ManageAccount() {
       </aside>
 
       {showMain === 'profile' && (
-        <main>
+        <main className={theme}>
           <h3>Details</h3>
 
           <div>
@@ -87,14 +88,18 @@ export default function ManageAccount() {
             </figure>
           </div>
 
-          <button id="edit" onClick={() => setShowEditProfile(true)}>
+          <button
+            id="edit"
+            className={theme}
+            onClick={() => setShowEditProfile(true)}
+          >
             Edit
           </button>
         </main>
       )}
 
       {showMain === 'account' && (
-        <main>
+        <main className={theme}>
           <h3>Credentials</h3>
 
           <div>

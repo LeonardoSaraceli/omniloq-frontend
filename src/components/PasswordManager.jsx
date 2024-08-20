@@ -19,6 +19,7 @@ import Settings from './password-manager/Settings'
 import ManageAccount from './password-manager/ManageAccount'
 import EditProfile from './password-manager/EditProfile'
 import DeleteAccount from './password-manager/DeleteAccounts'
+import ConfirmPassword from './password-manager/ConfirmPassword'
 
 export const PasswordManagerContext = createContext()
 
@@ -50,12 +51,20 @@ export default function PasswordManager() {
   const [showManageAccount, setShowManageAccount] = useState(false)
   const [showEditProfile, setShowEditProfile] = useState(false)
   const [showDeleteAccount, setShowDeleteAccount] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [validShowPasswordToken, setValidShowPasswordToken] = useState(false)
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+  const [language, setLanguage] = useState('en')
+
+  localStorage.setItem('theme', theme)
 
   const modalRef = useRef(null)
 
   const navigate = useNavigate()
 
   const token = localStorage.getItem('jwt')
+
+  const pwToken = localStorage.getItem('pw')
 
   useEffect(() => {
     fetch('http://localhost:3030/chests/', {
@@ -273,7 +282,11 @@ export default function PasswordManager() {
     const account = document.getElementById('account')
 
     function handleClickOutside(event) {
-      if (modalRef.current && !modalRef.current.contains(event.target) && !account.contains(event.target)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target) &&
+        !account.contains(event.target)
+      ) {
         setShowMenuAccount(false)
       }
     }
@@ -284,6 +297,31 @@ export default function PasswordManager() {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
+
+  useEffect(() => {
+    if (!pwToken) {
+      setValidShowPasswordToken(false)
+      return
+    }
+
+    fetch('http://localhost:3030/users/verify-token', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${pwToken}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          setValidShowPasswordToken(false)
+          return
+        }
+
+        return res.json()
+      })
+      .then((data) => {
+        setValidShowPasswordToken(data.valid)
+      })
+  }, [pwToken])
 
   return (
     <PasswordManagerContext.Provider
@@ -330,6 +368,12 @@ export default function PasswordManager() {
         fetchChest,
         fetchProfile,
         modalRef,
+        setShowConfirmPassword,
+        validShowPasswordToken,
+        theme,
+        setTheme,
+        language,
+        setLanguage,
       }}
     >
       <div id="password-manager">
@@ -343,13 +387,18 @@ export default function PasswordManager() {
           showEditItemFeatures ||
           showEditChestFeatures ||
           showSettings ||
-          showManageAccount) && <div className="modal-active"></div>}
+          showManageAccount ||
+          showConfirmPassword) && (
+          <div id={theme} className="modal-active"></div>
+        )}
 
         {(showAddWebsite ||
           showAddToChest ||
           showAddFromChest ||
           showEditProfile ||
-          showDeleteAccount) && <div className="modal-above-active"></div>}
+          showDeleteAccount) && (
+          <div id={theme} className="modal-above-active"></div>
+        )}
 
         <Aside />
 
@@ -387,6 +436,8 @@ export default function PasswordManager() {
       {showEditProfile && <EditProfile />}
 
       {showDeleteAccount && <DeleteAccount />}
+
+      {showConfirmPassword && <ConfirmPassword />}
     </PasswordManagerContext.Provider>
   )
 }

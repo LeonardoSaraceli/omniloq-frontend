@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 
 export default function DeleteItem() {
-  const { item, token, setShowDeleteItem, fetchItems, setActiveItem } =
+  const { theme, item, token, setShowDeleteItem, fetchItems, setActiveItem } =
     useContext(PasswordManagerContext)
 
   const handleDeleteItem = () => {
@@ -26,7 +26,7 @@ export default function DeleteItem() {
   }
 
   return (
-    <div id="delete-item">
+    <div id="delete-item" className={theme}>
       <span>This action is irreversible, are you sure that want to do it?</span>
 
       <div id="buttons">

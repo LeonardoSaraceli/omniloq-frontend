@@ -2,6 +2,8 @@ import { useContext, useEffect } from 'react'
 import omniloqLogo from '../../assets/images/omniloq-logo-main-display.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faEye,
+  faEyeSlash,
   faKey,
   faPen,
   faStar,
@@ -10,6 +12,7 @@ import {
 import { PasswordManagerContext } from '../PasswordManager'
 import { faFolder } from '@fortawesome/free-regular-svg-icons'
 import truncateString from './truncateString'
+import hidePassword from './hidePassword'
 
 export default function DisplayArea() {
   const {
@@ -28,6 +31,10 @@ export default function DisplayArea() {
     setShowEditChest,
     setShowDeleteChest,
     fetchItems,
+    fetchItem,
+    setShowConfirmPassword,
+    validShowPasswordToken,
+    theme,
   } = useContext(PasswordManagerContext)
 
   useEffect(() => {
@@ -36,7 +43,10 @@ export default function DisplayArea() {
     }
 
     fetch(`http://localhost:3030/items/${activeItem}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         if (res.status === 404) {
@@ -129,8 +139,56 @@ export default function DisplayArea() {
       .then((data) => setChest(data.chest))
   }, [activeChest, setChest, token])
 
+  const handleShowPassword = () => {
+    if (!item) {
+      return
+    }
+
+    fetch(`http://localhost:3030/items/show-password/${item.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return
+        }
+
+        return res.json()
+      })
+      .then(() => {
+        fetchItem()
+      })
+  }
+
+  const handleHidePassword = () => {
+    if (!item) {
+      return
+    }
+
+    fetch(`http://localhost:3030/items/hide-password/${item.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return
+        }
+
+        return res.json()
+      })
+      .then(() => {
+        fetchItem()
+      })
+  }
+
   return (
-    <section id="display-area">
+    <section id="display-area" className={theme}>
       {activeItem === 0 && activeChest === 0 && (
         <img src={omniloqLogo} id="app-default-logo" alt="Omniloq logo" />
       )}
@@ -139,6 +197,7 @@ export default function DisplayArea() {
         <div id="item-display">
           <ul id="item-actions">
             <li
+              id={theme}
               className={item.favourite ? 'unfavorite-item' : null}
               onClick={() =>
                 item.favourite ? handleUnfavoriteItem() : handleFavoriteItem()
@@ -149,13 +208,13 @@ export default function DisplayArea() {
               <span>{item.favourite ? 'Unfavorite' : 'Favorite'}</span>
             </li>
 
-            <li onClick={handleShowEditItem}>
+            <li id={theme} onClick={handleShowEditItem}>
               <FontAwesomeIcon icon={faPen} className="action-icon" />
 
               <span>Edit</span>
             </li>
 
-            <li onClick={handleShowDeleteItem}>
+            <li id={theme} onClick={handleShowDeleteItem}>
               <FontAwesomeIcon icon={faTrashCan} className="action-icon" />
 
               <span>Delete</span>
@@ -164,7 +223,11 @@ export default function DisplayArea() {
 
           <article id="item-info">
             <div id="item-headline">
-              <FontAwesomeIcon icon={faKey} id="item-avatar" />
+              <FontAwesomeIcon
+                icon={faKey}
+                id="item-avatar"
+                className={theme}
+              />
 
               <h2>{truncateString(item.name, 30)}</h2>
             </div>
@@ -189,7 +252,29 @@ export default function DisplayArea() {
               <li>
                 <span>Password</span>
 
-                <p>{truncateString(decrypted, 40)}</p>
+                <div id="password">
+                  <p>
+                    {validShowPasswordToken && item.show_password
+                      ? truncateString(decrypted, 30)
+                      : hidePassword(truncateString(decrypted, 30))}
+                  </p>
+
+                  <FontAwesomeIcon
+                    icon={
+                      validShowPasswordToken && item.show_password
+                        ? faEyeSlash
+                        : faEye
+                    }
+                    onClick={() =>
+                      validShowPasswordToken
+                        ? item.show_password
+                          ? handleHidePassword()
+                          : handleShowPassword()
+                        : setShowConfirmPassword(true)
+                    }
+                    className="password-icon"
+                  />
+                </div>
               </li>
 
               {item.websites && item.websites.length > 0 && (
@@ -209,13 +294,13 @@ export default function DisplayArea() {
       {activeChest > 0 && (
         <div id="chest-display">
           <ul id="chest-actions">
-            <li onClick={() => setShowEditChest(true)}>
+            <li id={theme} onClick={() => setShowEditChest(true)}>
               <FontAwesomeIcon icon={faPen} className="action-icon" />
 
               <span>Edit</span>
             </li>
 
-            <li onClick={() => setShowDeleteChest(true)}>
+            <li id={theme} onClick={() => setShowDeleteChest(true)}>
               <FontAwesomeIcon icon={faTrashCan} className="action-icon" />
 
               <span>Delete</span>
@@ -224,7 +309,11 @@ export default function DisplayArea() {
 
           <article id="chest-info">
             <div id="chest-headline">
-              <FontAwesomeIcon icon={faFolder} id="chest-avatar" />
+              <FontAwesomeIcon
+                icon={faFolder}
+                id="chest-avatar"
+                className={theme}
+              />
 
               <h2>{chest.name}</h2>
             </div>
