@@ -1,8 +1,35 @@
-# React + Vite
+# Omniloq - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for **Omniloq**, a password manager designed to securely store and manage your passwords. The frontend is built using **React** and styled with **vanilla CSS**.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User-friendly interface built with React.
+- Simple and clean UI using vanilla CSS.
+- Seamless interaction with the backend API.
+
+## Technologies Used
+
+- React (JavaScript)
+- Vanilla CSS
+- Fetch API for making requests
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-username/omniloq-frontend.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the server:
+
+   ```bash
+   npm run dev
+   ```
