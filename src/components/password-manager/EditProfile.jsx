@@ -1,9 +1,12 @@
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function EditProfile() {
   const { theme, token, profile, setShowEditProfile, fetchProfile } =
     useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const [formData, setFormData] = useState({
     first_name: profile.first_name,
@@ -47,7 +50,7 @@ export default function EditProfile() {
   return (
     <form id="edit-profile" onSubmit={handleOnSubmit} className={theme}>
       <div className="profile-info">
-        <label htmlFor="first_name">First name</label>
+        <label htmlFor="first_name">{t('first-name')}</label>
 
         <input
           type="text"
@@ -60,7 +63,7 @@ export default function EditProfile() {
       </div>
 
       <div className="profile-info">
-        <label htmlFor="last_name">Last name</label>
+        <label htmlFor="last_name">{t('last-name')}</label>
 
         <input
           type="text"
@@ -74,11 +77,11 @@ export default function EditProfile() {
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowEditProfile(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
         <button type="submit" id="edit" className={theme}>
-          Save
+          {t('save')}
         </button>
       </div>
     </form>

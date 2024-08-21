@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 import truncateString from './truncateString'
+import { TranslationContext } from '../App'
 
 export default function MainAside() {
   const { theme, items, setActiveItem, activeCollection } = useContext(
@@ -13,6 +14,8 @@ export default function MainAside() {
   const handleChange = (e) => {
     setInput(e.target.value)
   }
+
+  const { t } = useContext(TranslationContext)
 
   const allItemsSearch = items.filter((item) =>
     item.name
@@ -36,7 +39,13 @@ export default function MainAside() {
 
         <input
           type="search"
-          placeholder={`Search in ${activeCollection}`}
+          placeholder={`${t('search-in')} ${
+            activeCollection === 'All items'
+              ? t('all-items')
+              : activeCollection === 'Favourites'
+              ? t('favourites')
+              : activeCollection
+          }`}
           className={theme}
           value={input}
           onChange={handleChange}

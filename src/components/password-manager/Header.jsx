@@ -2,11 +2,14 @@ import { faBug, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function PasswordManagerHeader() {
   const { theme, setShowCreateTicket, setShowCreateItem } = useContext(
     PasswordManagerContext
   )
+
+  const { t } = useContext(TranslationContext)
 
   return (
     <header id="password-manager-main-header" className={theme}>
@@ -20,7 +23,7 @@ export default function PasswordManagerHeader() {
       <button className={theme} onClick={() => setShowCreateItem(true)}>
         <FontAwesomeIcon icon={faPlus} id="header-icon" />
 
-        <span>New item</span>
+        <span>{t('new-item')}</span>
       </button>
     </header>
   )

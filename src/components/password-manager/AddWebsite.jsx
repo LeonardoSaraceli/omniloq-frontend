@@ -1,10 +1,13 @@
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function AddWebsite() {
   const { theme, token, item, setShowAddWebsite, fetchItem } = useContext(
     PasswordManagerContext
   )
+
+  const { t } = useContext(TranslationContext)
 
   const [url, setUrl] = useState('')
 
@@ -49,11 +52,11 @@ export default function AddWebsite() {
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowAddWebsite(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
         <button type="submit" id="add" className={theme}>
-          Add
+          {t('add')}
         </button>
       </div>
     </form>

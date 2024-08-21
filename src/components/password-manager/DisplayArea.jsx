@@ -13,6 +13,7 @@ import { PasswordManagerContext } from '../PasswordManager'
 import { faFolder } from '@fortawesome/free-regular-svg-icons'
 import truncateString from './truncateString'
 import hidePassword from './hidePassword'
+import { TranslationContext } from '../App'
 
 export default function DisplayArea() {
   const {
@@ -36,6 +37,8 @@ export default function DisplayArea() {
     validShowPasswordToken,
     theme,
   } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   useEffect(() => {
     if (activeItem === 0) {
@@ -205,19 +208,19 @@ export default function DisplayArea() {
             >
               <FontAwesomeIcon icon={faStar} className="action-icon" />
 
-              <span>{item.favourite ? 'Unfavorite' : 'Favorite'}</span>
+              <span>{item.favourite ? t('unfavorite') : t('favorite')}</span>
             </li>
 
             <li id={theme} onClick={handleShowEditItem}>
               <FontAwesomeIcon icon={faPen} className="action-icon" />
 
-              <span>Edit</span>
+              <span>{t('edit')}</span>
             </li>
 
             <li id={theme} onClick={handleShowDeleteItem}>
               <FontAwesomeIcon icon={faTrashCan} className="action-icon" />
 
-              <span>Delete</span>
+              <span>{t('delete')}</span>
             </li>
           </ul>
 
@@ -235,7 +238,7 @@ export default function DisplayArea() {
             <ul>
               {item.email && (
                 <li className="element-info">
-                  <span>E-mail</span>
+                  <span>{t('email')}</span>
 
                   <p>{truncateString(item.email, 40)}</p>
                 </li>
@@ -243,14 +246,14 @@ export default function DisplayArea() {
 
               {item.username && (
                 <li className="element-info">
-                  <span>Username</span>
+                  <span>{t('username')}</span>
 
                   <p>{truncateString(item.username, 40)}</p>
                 </li>
               )}
 
               <li>
-                <span>Password</span>
+                <span>{t('password')}</span>
 
                 <div id="password">
                   <p>
@@ -279,7 +282,7 @@ export default function DisplayArea() {
 
               {item.websites && item.websites.length > 0 && (
                 <li className="websites-info">
-                  <span>Websites</span>
+                  <span>{t('websites')}</span>
 
                   {item.websites.map((website) => (
                     <p key={website.id}>{truncateString(website.url, 40)}</p>
@@ -297,13 +300,13 @@ export default function DisplayArea() {
             <li id={theme} onClick={() => setShowEditChest(true)}>
               <FontAwesomeIcon icon={faPen} className="action-icon" />
 
-              <span>Edit</span>
+              <span>{t('edit')}</span>
             </li>
 
             <li id={theme} onClick={() => setShowDeleteChest(true)}>
               <FontAwesomeIcon icon={faTrashCan} className="action-icon" />
 
-              <span>Delete</span>
+              <span>{t('delete')}</span>
             </li>
           </ul>
 
@@ -321,7 +324,7 @@ export default function DisplayArea() {
             {chest.description && (
               <ul>
                 <li>
-                  <span>Description</span>
+                  <span>{t('description')}</span>
 
                   <p>{chest.description}</p>
                 </li>

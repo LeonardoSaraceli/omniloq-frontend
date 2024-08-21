@@ -1,45 +1,39 @@
-/* eslint-disable react/no-unescaped-entities */
+import { useContext } from 'react'
 import firstImage from '../../assets/images/first-image-li.png'
 import secondImage from '../../assets/images/second-image-li.png'
 import thirdImage from '../../assets/images/third-image-li.png'
+import { TranslationContext } from '../App'
 
 export default function SecondSection() {
+  const { t } = useContext(TranslationContext)
+
   return (
-    <section id='second-section'>
-      <h1>Much more than a password manager</h1>
+    <section id="second-section">
+      <h1>{t('second-section-h1')}</h1>
 
       <ul>
         <li>
-          <h2>Everything in one place</h2>
+          <h2>{t('first-li-h2-second-section')}</h2>
 
-          <img src={firstImage} alt="One place img" />
+          <img src={firstImage} alt={t('first-li-alt-img-second-section')} />
 
-          <p>
-            Passwords, bank accounts, credit cards and everything you need at
-            any time.
-          </p>
+          <p>{t('first-li-p-second-section')}</p>
         </li>
 
         <li>
-          <h2>More security, less risk</h2>
+          <h2>{t('second-li-h2-second-section')}</h2>
 
-          <img src={secondImage} alt="More security img" />
+          <img src={secondImage} alt={t('second-li-alt-img-second-section')} />
 
-          <p>
-            All your passwords are encrypted in our database, ensuring they are
-            not leaked.
-          </p>
+          <p>{t('second-li-p-second-section')}</p>
         </li>
 
         <li>
-          <h2>From any device</h2>
+          <h2>{t('third-li-h2-second-section')}</h2>
 
-          <img src={thirdImage} alt="Any device img" />
+          <img src={thirdImage} alt={t('third-li-alt-img-second-section')} />
 
-          <p>
-            Lost your phone? Your data will be the last thing you need to worry
-            about, it's safe on our app.
-          </p>
+          <p>{t('third-li-p-second-section')}</p>
         </li>
       </ul>
     </section>

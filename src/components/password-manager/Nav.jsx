@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 import truncateString from './truncateString'
+import { TranslationContext } from '../App'
 
 export default function Nav() {
   const {
@@ -19,6 +20,8 @@ export default function Nav() {
     setActiveChest,
   } = useContext(PasswordManagerContext)
 
+  const { t } = useContext(TranslationContext)
+
   const [showChests, setShowChests] = useState(true)
 
   return (
@@ -27,13 +30,13 @@ export default function Nav() {
         <li className={theme} onClick={() => setActiveCollection('All items')}>
           <FontAwesomeIcon icon={faVault} className="nav-icon" />
 
-          <span>All items</span>
+          <span>{t('all-items')}</span>
         </li>
 
         <li className={theme} onClick={() => setActiveCollection('Favourites')}>
           <FontAwesomeIcon icon={faStar} className="nav-icon" />
 
-          <span>Favourites</span>
+          <span>{t('favourites')}</span>
         </li>
 
         <ul>
@@ -45,7 +48,7 @@ export default function Nav() {
               onClick={() => setShowChests(!showChests)}
             />
 
-            <span>Chests</span>
+            <span>{t('chests')}</span>
 
             <FontAwesomeIcon
               icon={faPlus}

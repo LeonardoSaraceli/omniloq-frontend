@@ -2,11 +2,14 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
+import { TranslationContext } from '../App'
 
 export default function CreateItem() {
   const { theme, token, setShowCreateItem, fetchItems } = useContext(
     PasswordManagerContext
   )
+
+  const { t } = useContext(TranslationContext)
 
   const [missingFields, setMissingFields] = useState(false)
 
@@ -61,13 +64,13 @@ export default function CreateItem() {
       <div id="item-name-avatar">
         <FontAwesomeIcon icon={faKey} className="avatar-item-icon" id={theme} />
 
-        <h2>New item</h2>
+        <h2>{t('new-item')}</h2>
       </div>
 
       <form id="create-item" onSubmit={handleOnSubmit}>
         {missingFields && (
           <div className="error-message">
-            <span>All required fields must be filled in.</span>
+            <span>{t('all-required-fields')}</span>
           </div>
         )}
 
@@ -76,14 +79,14 @@ export default function CreateItem() {
           name="name"
           value={formData.name}
           onChange={handleOnChange}
-          placeholder="Name"
+          placeholder={t('name')}
           required
         />
 
         <input
           type="email"
           name="email"
-          placeholder="E-mail (optional)"
+          placeholder={`${t('email')} ${t('optional')}`}
           value={formData.email}
           onChange={handleOnChange}
           autoComplete="current-email"
@@ -92,7 +95,7 @@ export default function CreateItem() {
         <input
           type="text"
           name="username"
-          placeholder="Username (optional)"
+          placeholder={`${t('username')} ${t('optional')}`}
           value={formData.username}
           onChange={handleOnChange}
           autoComplete="username"
@@ -101,7 +104,7 @@ export default function CreateItem() {
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder={t('password')}
           value={formData.password}
           onChange={handleOnChange}
           autoComplete="current-password"
@@ -110,11 +113,11 @@ export default function CreateItem() {
 
         <div id="buttons">
           <button id="cancel" onClick={() => setShowCreateItem(false)}>
-            Cancel
+            {t('cancel')}
           </button>
 
           <button type="submit" id="create" className={theme}>
-            Create
+            {t('create')}
           </button>
         </div>
       </form>

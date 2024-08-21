@@ -3,6 +3,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PasswordManagerContext } from '../PasswordManager'
 import { useContext } from 'react'
+import { TranslationContext } from '../App'
 
 export default function EditChestFeatures() {
   const {
@@ -14,6 +15,8 @@ export default function EditChestFeatures() {
     fetchChest,
     fetchItems,
   } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const handleItemRemove = (itemId) => {
     fetch(`http://localhost:3030/chests/remove-item/${itemId}`, {
@@ -46,7 +49,7 @@ export default function EditChestFeatures() {
   return (
     <form id="edit-chest-features" onSubmit={handleOnSubmit} className={theme}>
       <div className="edit-chest">
-        <span id="label">Items</span>
+        <span id="label">{t('items')}</span>
 
         <ul>
           {chest &&
@@ -67,8 +70,8 @@ export default function EditChestFeatures() {
 
             <span>
               {chest && chest.items.length > 0
-                ? 'add another item'
-                : 'add an item'}
+                ? t('add-another-item')
+                : t('add-an-item')}
             </span>
           </div>
         </ul>
@@ -76,11 +79,11 @@ export default function EditChestFeatures() {
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowEditChestFeatures(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
         <button type="submit" id="edit" className={theme}>
-          Save
+          {t('save')}
         </button>
       </div>
     </form>

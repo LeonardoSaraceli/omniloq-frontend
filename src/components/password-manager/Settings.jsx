@@ -2,10 +2,15 @@ import { faCheck, faGear, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function Settings() {
-  const { theme, setTheme, language, setLanguage, setShowSettings } =
-    useContext(PasswordManagerContext)
+  const { theme, setTheme, setShowSettings } = useContext(
+    PasswordManagerContext
+  )
+
+  const { t, handleChangeLanguage, currentLanguage } =
+    useContext(TranslationContext)
 
   return (
     <div id="settings">
@@ -17,7 +22,7 @@ export default function Settings() {
             id={theme}
           />
 
-          <span className="headline">General</span>
+          <span className="headline">{t('general')}</span>
         </div>
 
         <div className="nav" id={theme} onClick={() => setShowSettings(false)}>
@@ -27,13 +32,13 @@ export default function Settings() {
             id={theme}
           />
 
-          <span className="headline">Close</span>
+          <span className="headline">{t('close')}</span>
         </div>
       </div>
 
       <div id="display-settings" className={theme}>
         <div id="theme">
-          <span className="headline">Theme</span>
+          <span className="headline">{t('theme')}</span>
 
           <div id="light">
             <div
@@ -45,7 +50,7 @@ export default function Settings() {
               ) : null}
             </div>
 
-            <span>Light</span>
+            <span>{t('light')}</span>
           </div>
 
           <div id="dark">
@@ -58,19 +63,23 @@ export default function Settings() {
               ) : null}
             </div>
 
-            <span>Dark</span>
+            <span>{t('dark')}</span>
           </div>
         </div>
 
         <div id="language">
-          <span className="headline">Language</span>
+          <span className="headline">{t('language')}</span>
 
           <div id="en">
             <div
-              className={`checkbox ${language === 'en' ? 'active' : null}`}
-              onClick={() => (language === 'en' ? null : setLanguage('en'))}
+              className={`checkbox ${
+                currentLanguage === 'en' ? 'active' : null
+              }`}
+              onClick={() =>
+                currentLanguage === 'en' ? null : handleChangeLanguage()
+              }
             >
-              {language === 'en' ? (
+              {currentLanguage === 'en' ? (
                 <FontAwesomeIcon icon={faCheck} className="checkbox-icon" />
               ) : null}
             </div>
@@ -80,15 +89,19 @@ export default function Settings() {
 
           <div id="pt">
             <div
-              className={`checkbox ${language === 'pt' ? 'active' : null}`}
-              onClick={() => (language === 'pt' ? null : setLanguage('pt'))}
+              className={`checkbox ${
+                currentLanguage === 'pt' ? 'active' : null
+              }`}
+              onClick={() =>
+                currentLanguage === 'pt' ? null : handleChangeLanguage()
+              }
             >
-              {language === 'pt' ? (
+              {currentLanguage === 'pt' ? (
                 <FontAwesomeIcon icon={faCheck} className="checkbox-icon" />
               ) : null}
             </div>
 
-            <span>Portuguese</span>
+            <span>Português</span>
           </div>
         </div>
       </div>

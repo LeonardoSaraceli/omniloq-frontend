@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Stepper from './Stepper'
 import { useNavigate } from 'react-router-dom'
+import { TranslationContext } from './App'
 
 export default function Login() {
+  const { t } = useContext(TranslationContext)
+
   const [incorrectLogin, setIncorrectLogin] = useState(false)
 
   const navigate = useNavigate()
@@ -53,16 +56,18 @@ export default function Login() {
   return (
     <Stepper>
       <section id="login-section">
-        <h1>Sign in</h1>
+        <h1>{t('sign-in')}</h1>
 
         {incorrectLogin && (
-          <span className="error-message">Incorrect e-mail or password.</span>
+          <span className="error-message">
+            {t('incorrect-email-or-password')}
+          </span>
         )}
 
         <form onSubmit={handleOnSubmit}>
           <input
             type="email"
-            placeholder="E-mail"
+            placeholder={t('email')}
             autoComplete="current-email"
             name="email"
             value={formDetails.email}
@@ -71,14 +76,14 @@ export default function Login() {
 
           <input
             type="password"
-            placeholder="Password"
+            placeholder={t('password')}
             autoComplete="current-password"
             name="password"
             value={formDetails.password}
             onChange={handleOnChange}
           />
 
-          <button type="submit">Continue</button>
+          <button type="submit">{t('continue')}</button>
         </form>
       </section>
     </Stepper>

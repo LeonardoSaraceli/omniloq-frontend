@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function DeleteChest() {
   const {
@@ -11,6 +12,8 @@ export default function DeleteChest() {
     setActiveChest,
     setActiveCollection,
   } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const handleDeleteChest = () => {
     fetch(`http://localhost:3030/chests/${chest.id}`, {
@@ -35,15 +38,15 @@ export default function DeleteChest() {
 
   return (
     <div id="delete-chest" className={theme}>
-      <span>This action is irreversible, are you sure that want to do it?</span>
+      <span>{t('action-irreversible')}</span>
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowDeleteChest(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
         <button id="delete" onClick={handleDeleteChest}>
-          Delete
+          {t('delete')}
         </button>
       </div>
     </div>

@@ -2,11 +2,14 @@ import { faFolder } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PasswordManagerContext } from '../PasswordManager'
 import { useContext, useState } from 'react'
+import { TranslationContext } from '../App'
 
 export default function CreateChest() {
   const { theme, token, setShowCreateChest, fetchChests } = useContext(
     PasswordManagerContext
   )
+
+  const { t } = useContext(TranslationContext)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -56,14 +59,14 @@ export default function CreateChest() {
           id={theme}
         />
 
-        <h2>New chest</h2>
+        <h2>{t('new-chest')}</h2>
       </div>
 
       <form id="create-chest" onSubmit={handleOnSubmit}>
         <input
           type="text"
           name="name"
-          placeholder="Name"
+          placeholder={t('name')}
           required
           value={formData.name}
           onChange={handleOnChange}
@@ -71,18 +74,18 @@ export default function CreateChest() {
 
         <textarea
           name="description"
-          placeholder="Description (optional)"
+          placeholder={`${t('description')} ${t('optional')}`}
           value={formData.description}
           onChange={handleOnChange}
         ></textarea>
 
         <div id="buttons">
           <button id="cancel" onClick={() => setShowCreateChest(false)}>
-            Cancel
+            {t('cancel')}
           </button>
 
           <button type="submit" id="create" className={theme}>
-            Create
+            {t('create')}
           </button>
         </div>
       </form>

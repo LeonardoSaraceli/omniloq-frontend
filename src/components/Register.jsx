@@ -1,9 +1,11 @@
-/* eslint-disable react/no-unescaped-entities */
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Stepper from './Stepper'
 import { useNavigate } from 'react-router-dom'
+import { TranslationContext } from './App'
 
 export default function Register() {
+  const { t } = useContext(TranslationContext)
+
   const [missingFields, setMissingFields] = useState(false)
   const [existingEmail, setExistingEmail] = useState(false)
   const [passwordMatch, setPasswordMatch] = useState(true)
@@ -68,25 +70,25 @@ export default function Register() {
   return (
     <Stepper>
       <section id="register-section">
-        <h1>Sign up</h1>
+        <h1>{t('sign-up')}</h1>
 
         {!passwordMatch && (
-          <span className="error-message">The password dosen't match.</span>
+          <span className="error-message">{t('password-not-match')}</span>
         )}
 
         {existingEmail && (
-          <span className="error-message">E-mail already registered.</span>
+          <span className="error-message">{t('email-already-registered')}</span>
         )}
 
         {missingFields && (
-          <span className="error-message">All fields must be filled in.</span>
+          <span className="error-message">{t('all-fields-required')}</span>
         )}
 
         <form onSubmit={handleOnSubmit}>
           <div id="full-name-input">
             <input
               type="text"
-              placeholder="First name"
+              placeholder={t('first-name')}
               name="first_name"
               autoComplete="first name"
               value={formDetails.first_name}
@@ -96,7 +98,7 @@ export default function Register() {
 
             <input
               type="text"
-              placeholder="Last name"
+              placeholder={t('last-name')}
               name="last_name"
               autoComplete="last name"
               value={formDetails.last_name}
@@ -107,7 +109,7 @@ export default function Register() {
 
           <input
             type="email"
-            placeholder="E-mail"
+            placeholder={t('email')}
             name="email"
             autoComplete="email"
             value={formDetails.email}
@@ -117,7 +119,7 @@ export default function Register() {
 
           <input
             type="password"
-            placeholder="Password"
+            placeholder={t('password')}
             name="password"
             autoComplete="new-password"
             value={formDetails.password}
@@ -127,7 +129,7 @@ export default function Register() {
 
           <input
             type="password"
-            placeholder="Confirm password"
+            placeholder={t('confirm-password')}
             autoComplete="new-password"
             name="confirm_password"
             value={formDetails.confirm_password}
@@ -135,7 +137,7 @@ export default function Register() {
             required
           />
 
-          <button type="submit">Continue</button>
+          <button type="submit">{t('continue')}</button>
         </form>
       </section>
     </Stepper>

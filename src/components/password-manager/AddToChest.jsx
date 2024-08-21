@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function AddToChest() {
   const {
@@ -11,6 +12,8 @@ export default function AddToChest() {
     fetchItem,
     fetchItems,
   } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const chestsAvailables = chests.filter(
     (chest) => !item.chests.some((itemChest) => itemChest.id === chest.id)
@@ -58,7 +61,9 @@ export default function AddToChest() {
         onChange={handleOnChange}
         disabled={chestsAvailables.length === 0}
       >
-        {chestsAvailables.length === 0 && <option>No chests available</option>}
+        {chestsAvailables.length === 0 && (
+          <option>{t('no-chests-available')}</option>
+        )}
         {chestsAvailables.length > 0 &&
           chestsAvailables?.map((chest) => (
             <option key={chest.id} value={chest.id}>
@@ -69,7 +74,7 @@ export default function AddToChest() {
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowAddToChest(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
         <button
@@ -78,7 +83,7 @@ export default function AddToChest() {
           disabled={chestsAvailables.length === 0}
           className={theme}
         >
-          Add
+          {t('add')}
         </button>
       </div>
     </form>

@@ -3,6 +3,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PasswordManagerContext } from '../PasswordManager'
 import { useContext } from 'react'
+import { TranslationContext } from '../App'
 
 export default function EditItemFeatures() {
   const {
@@ -15,6 +16,8 @@ export default function EditItemFeatures() {
     fetchItem,
     fetchItems,
   } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const handleWebsiteDelete = (websiteId) => {
     fetch(`http://localhost:3030/websites/${websiteId}`, {
@@ -65,7 +68,7 @@ export default function EditItemFeatures() {
   return (
     <form id="edit-item-features" onSubmit={handleOnSubmit} className={theme}>
       <div className="edit-item">
-        <span id="label">Websites</span>
+        <span id="label">{t('websites')}</span>
 
         <ul>
           {item.websites &&
@@ -86,15 +89,15 @@ export default function EditItemFeatures() {
 
             <span>
               {item.websites && item.websites.length > 0
-                ? 'add another website'
-                : 'add an website'}
+                ? t('add-another-website')
+                : t('add-a-website')}
             </span>
           </div>
         </ul>
       </div>
 
       <div className="edit-item">
-        <span id="label">Chests</span>
+        <span id="label">{t('chests')}</span>
 
         <ul>
           {item.chests &&
@@ -115,8 +118,8 @@ export default function EditItemFeatures() {
 
             <span>
               {item.chests && item.chests.length > 0
-                ? 'add to another chest'
-                : 'add to an chest'}
+                ? t('add-to-another-chest')
+                : t('add-to-an-chest')}
             </span>
           </div>
         </ul>
@@ -124,11 +127,11 @@ export default function EditItemFeatures() {
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowEditItemFeatures(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
         <button type="submit" id="edit" className={theme}>
-          Save
+          {t('save')}
         </button>
       </div>
     </form>

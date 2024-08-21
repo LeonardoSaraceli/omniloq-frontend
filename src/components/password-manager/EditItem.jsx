@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function EditItem() {
   const {
@@ -11,6 +12,8 @@ export default function EditItem() {
     setShowEditItemFeatures,
     fetchItem,
   } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const [missingFields, setMissingFields] = useState(false)
 
@@ -58,6 +61,7 @@ export default function EditItem() {
       res.json().then(() => {
         setShowEditItem(false)
         fetchItem()
+        setShowEditItemFeatures(true)
       })
     })
   }
@@ -66,12 +70,12 @@ export default function EditItem() {
     <form id="edit-item" onSubmit={handleOnSubmit} className={theme}>
       {missingFields && (
         <div className="error-message">
-          <span>All required fields must be filled in.</span>
+          <span>{t('all-required-fields')}</span>
         </div>
       )}
 
       <div className="inputs-edit-item">
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">{t('name')}</label>
 
         <input
           type="text"
@@ -84,7 +88,7 @@ export default function EditItem() {
       </div>
 
       <div className="inputs-edit-item">
-        <label htmlFor="email">E-mail</label>
+        <label htmlFor="email">{t('email')}</label>
 
         <input
           type="email"
@@ -92,13 +96,13 @@ export default function EditItem() {
           id="email"
           value={formData.email ? formData.email : ''}
           onChange={handleOnChange}
-          placeholder="(optional)"
+          placeholder={t('optional')}
           autoComplete="current-email"
         />
       </div>
 
       <div className="inputs-edit-item">
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">{t('username')}</label>
 
         <input
           type="text"
@@ -106,13 +110,13 @@ export default function EditItem() {
           id="username"
           value={formData.username ? formData.username : ''}
           onChange={handleOnChange}
-          placeholder="(optional)"
+          placeholder={t('optional')}
           autoComplete="current-username"
         />
       </div>
 
       <div className="inputs-edit-item">
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">{t('password')}</label>
 
         <input
           type="password"
@@ -127,16 +131,11 @@ export default function EditItem() {
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowEditItem(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
-        <button
-          type="submit"
-          id="edit"
-          onClick={() => setShowEditItemFeatures(true)}
-          className={theme}
-        >
-          Save
+        <button type="submit" id="edit" className={theme}>
+          {t('save')}
         </button>
       </div>
     </form>

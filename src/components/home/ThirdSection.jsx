@@ -1,9 +1,11 @@
-/* eslint-disable react/no-unescaped-entities */
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { TranslationContext } from '../App'
 
 export default function ThirdSection() {
+  const { t } = useContext(TranslationContext)
+
   const [showFirstMessage, setShowFirstMessage] = useState(false)
   const [showSecondMessage, setShowSecondMessage] = useState(false)
   const [showThirdMessage, setShowThirdMessage] = useState(false)
@@ -15,7 +17,7 @@ export default function ThirdSection() {
 
   return (
     <section id="third-section">
-      <h1>FAQ</h1>
+      <h1>{t('third-section-faq')}</h1>
 
       <article>
         <div className={showFirstMessage ? 'active' : 'not-active'}>
@@ -26,7 +28,7 @@ export default function ThirdSection() {
               setShowFirstMessage
             )}
           >
-            <span>What's an password manager?</span>
+            <span>{t('third-section-first-span')}</span>
 
             <FontAwesomeIcon
               icon={showFirstMessage ? faAngleUp : faAngleDown}
@@ -34,14 +36,7 @@ export default function ThirdSection() {
             />
           </div>
 
-          {showFirstMessage && (
-            <p>
-              Omniloq makes it easy to store your passwords. In a practical way,
-              we encrypt all your information to prevent your password from
-              being leaked, using a simple application so that you always have
-              secure access to your accounts.
-            </p>
-          )}
+          {showFirstMessage && <p>{t('third-section-first-p')}</p>}
 
           <div className="bottom-div"></div>
         </div>
@@ -54,7 +49,7 @@ export default function ThirdSection() {
               setShowSecondMessage
             )}
           >
-            <span>Is Omniloq safe?</span>
+            <span>{t('third-section-second-span')}</span>
 
             <FontAwesomeIcon
               icon={showSecondMessage ? faAngleUp : faAngleDown}
@@ -62,13 +57,7 @@ export default function ThirdSection() {
             />
           </div>
 
-          {showSecondMessage && (
-            <p>
-              Yes, we work with cutting-edge technology to encrypt all your
-              passwords. We change each one when entering our database, thus
-              ensuring security so that no one has access to it.
-            </p>
-          )}
+          {showSecondMessage && <p>{t('third-section-second-p')}</p>}
 
           <div className="bottom-div"></div>
         </div>
@@ -81,7 +70,7 @@ export default function ThirdSection() {
               setShowThirdMessage
             )}
           >
-            <span>Does Omniloq store the passwords in the cloud?</span>
+            <span>{t('third-section-third-span')}</span>
 
             <FontAwesomeIcon
               icon={showThirdMessage ? faAngleUp : faAngleDown}
@@ -89,9 +78,7 @@ export default function ThirdSection() {
             />
           </div>
 
-          {showThirdMessage && (
-            <p>Yes, all your data is located on our servers.</p>
-          )}
+          {showThirdMessage && <p>{t('third-section-third-p')}</p>}
 
           <div className="bottom-div"></div>
         </div>
@@ -104,7 +91,7 @@ export default function ThirdSection() {
               setShowFourthMessage
             )}
           >
-            <span>Is Omniloq free to use?</span>
+            <span>{t('third-section-fourth-span')}</span>
 
             <FontAwesomeIcon
               icon={showFourthMessage ? faAngleUp : faAngleDown}
@@ -112,12 +99,7 @@ export default function ThirdSection() {
             />
           </div>
 
-          {showFourthMessage && (
-            <p>
-              Yes, Omniloq offers fully encrypted, convenient and useful
-              password storage for free for your use.
-            </p>
-          )}
+          {showFourthMessage && <p>{t('third-section-fourth-p')}</p>}
 
           <div className="bottom-div"></div>
         </div>

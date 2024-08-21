@@ -2,11 +2,14 @@ import { faBug } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function CreateTicket() {
   const { theme, token, setShowCreateTicket } = useContext(
     PasswordManagerContext
   )
+
+  const { t } = useContext(TranslationContext)
 
   const [formData, setFormData] = useState({
     title: '',
@@ -53,14 +56,14 @@ export default function CreateTicket() {
           id={theme}
         />
 
-        <h2>New ticket</h2>
+        <h2>{t('new-ticket')}</h2>
       </div>
 
       <form id="create-ticket" onSubmit={handleOnSubmit}>
         <input
           type="text"
           name="title"
-          placeholder="Title"
+          placeholder={t('title')}
           required
           value={formData.title}
           onChange={handleOnChange}
@@ -68,7 +71,7 @@ export default function CreateTicket() {
 
         <textarea
           name="message"
-          placeholder="Message"
+          placeholder={t('message')}
           value={formData.message}
           onChange={handleOnChange}
           required
@@ -76,11 +79,11 @@ export default function CreateTicket() {
 
         <div id="buttons">
           <button id="cancel" onClick={() => setShowCreateTicket(false)}>
-            Cancel
+            {t('cancel')}
           </button>
 
           <button type="submit" id="create" className={theme}>
-            Create
+            {t('create')}
           </button>
         </div>
       </form>

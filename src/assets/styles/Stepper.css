@@ -8,23 +8,36 @@
     padding: 2rem;
     background-color: #f4f4f4;
 
-    select {
-      border: 1px solid #303136;
-      border-radius: 0.25rem;
-      background-color: transparent;
-      padding: 0.5rem 1rem 0.5rem 0.5rem;
-      width: min-content;
-      cursor: pointer;
+    #languages {
+      display: grid;
+      grid-template-rows: repeat(2, max-content);
       font-size: 16px;
-      font-family: 'Prompt', sans-serif;
+      cursor: pointer;
 
-      option {
-        color: #303136;
+      #select {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #303136;
+        border-radius: 0.25rem;
+        background-color: transparent;
+        padding: 0.5rem 2rem 0.5rem 0.5rem;
+        width: 150px;
+        padding: 0.5rem 1rem;
       }
-    }
 
-    select:focus {
-      outline: none;
+      #option {
+        margin-top: 0.5rem;
+        border-radius: 0.25rem;
+        background-color: white;
+        padding: 0.5rem 1rem;
+        width: 150px;
+      }
+
+      #option:hover {
+        background-color: #e5e5e5;
+      }
     }
   }
 

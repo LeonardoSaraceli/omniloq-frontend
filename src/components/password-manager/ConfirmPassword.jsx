@@ -1,8 +1,11 @@
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function ConfirmPassword() {
   const { token, setShowConfirmPassword } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const [password, setPassword] = useState('')
 
@@ -46,13 +49,13 @@ export default function ConfirmPassword() {
   return (
     <form id="confirm-password" onSubmit={handleOnSubmit}>
       {incorrectPassword && (
-        <span className="error-message">Incorrect password</span>
+        <span className="error-message">{t('incorrect-password')}</span>
       )}
 
       <input
         type="password"
         name="password"
-        placeholder="Password"
+        placeholder={t('password')}
         value={password}
         onChange={handleOnChange}
         required
@@ -60,11 +63,11 @@ export default function ConfirmPassword() {
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowConfirmPassword(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
         <button type="submit" id="edit">
-          Send
+          {t('send')}
         </button>
       </div>
     </form>

@@ -1,24 +1,28 @@
 import { useNavigate } from 'react-router-dom'
 import Stepper from './Stepper'
+import { TranslationContext } from './App'
+import { useContext } from 'react'
 
 export default function Welcome() {
+  const { t } = useContext(TranslationContext)
+
   const navigate = useNavigate()
 
   return (
     <Stepper>
       <section id="welcome-section">
         <div id="welcome-message">
-          <h1>Welcome to</h1>
+          <h1>{t('welcome-to')}</h1>
 
           <h2>Omniloq</h2>
         </div>
 
         <button id="create-account" onClick={() => navigate('/register')}>
-          <span>Create new account</span>
+          <span>{t('create-new-account')}</span>
         </button>
 
         <button id="sign-in" onClick={() => navigate('/login')}>
-          <span>Sign in</span>
+          <span>{t('sign-in')}</span>
         </button>
       </section>
     </Stepper>

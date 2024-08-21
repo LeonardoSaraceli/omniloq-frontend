@@ -54,7 +54,6 @@ export default function PasswordManager() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [validShowPasswordToken, setValidShowPasswordToken] = useState(false)
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
-  const [language, setLanguage] = useState('en')
 
   localStorage.setItem('theme', theme)
 
@@ -372,8 +371,6 @@ export default function PasswordManager() {
         validShowPasswordToken,
         theme,
         setTheme,
-        language,
-        setLanguage,
       }}
     >
       <div id="password-manager">

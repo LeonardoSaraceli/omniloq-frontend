@@ -1,9 +1,14 @@
 import { useContext } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 import { useNavigate } from 'react-router-dom'
+import { TranslationContext } from '../App'
 
 export default function DeleteAccount() {
-  const { theme, token, setShowDeleteAccount } = useContext(PasswordManagerContext)
+  const { theme, token, setShowDeleteAccount } = useContext(
+    PasswordManagerContext
+  )
+
+  const { t } = useContext(TranslationContext)
 
   const navigate = useNavigate()
 
@@ -27,15 +32,15 @@ export default function DeleteAccount() {
 
   return (
     <div id="delete-account" className={theme}>
-      <span>This action is irreversible, are you sure that want to do it?</span>
+      <span>{t('action-irreversible')}</span>
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowDeleteAccount(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
         <button id="delete" onClick={handleDeleteAccount}>
-          Delete
+          {t('delete')}
         </button>
       </div>
     </div>

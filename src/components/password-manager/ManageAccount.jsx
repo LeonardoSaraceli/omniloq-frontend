@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PasswordManagerContext } from '../PasswordManager'
 import { useContext, useState } from 'react'
+import { TranslationContext } from '../App'
 
 export default function ManageAccount() {
   const [showMain, setShowMain] = useState('profile')
@@ -19,6 +20,8 @@ export default function ManageAccount() {
     setShowEditProfile,
     setShowDeleteAccount,
   } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const dateObj = new Date(user.created_at)
 
@@ -35,29 +38,29 @@ export default function ManageAccount() {
           <li className={theme} onClick={() => setShowMain('profile')}>
             <FontAwesomeIcon icon={faUser} className="icon" id={theme} />
 
-            <span>Profile</span>
+            <span>{t('profile')}</span>
           </li>
 
           <li className={theme} onClick={() => setShowMain('account')}>
             <FontAwesomeIcon icon={faInfo} className="icon" id={theme} />
 
-            <span>Account</span>
+            <span>{t('account')}</span>
           </li>
 
           <li className={theme} onClick={() => setShowManageAccount(false)}>
             <FontAwesomeIcon icon={faXmark} className="icon" id={theme} />
 
-            <span>Close</span>
+            <span>{t('close')}</span>
           </li>
         </ul>
       </aside>
 
       {showMain === 'profile' && (
         <main className={theme}>
-          <h3>Details</h3>
+          <h3>{t('details')}</h3>
 
           <div>
-            <label htmlFor="first_name">First name</label>
+            <label htmlFor="first_name">{t('first-name')}</label>
 
             <figure>
               <input
@@ -73,7 +76,7 @@ export default function ManageAccount() {
           </div>
 
           <div>
-            <label htmlFor="last_name">Last name</label>
+            <label htmlFor="last_name">{t('last-name')}</label>
 
             <figure>
               <input
@@ -93,17 +96,17 @@ export default function ManageAccount() {
             className={theme}
             onClick={() => setShowEditProfile(true)}
           >
-            Edit
+            {t('edit')}
           </button>
         </main>
       )}
 
       {showMain === 'account' && (
         <main className={theme}>
-          <h3>Credentials</h3>
+          <h3>{t('credentials')}</h3>
 
           <div>
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">{t('email')}</label>
 
             <figure>
               <input
@@ -119,7 +122,7 @@ export default function ManageAccount() {
           </div>
 
           <div>
-            <label htmlFor="created_at">Created at</label>
+            <label htmlFor="created_at">{t('created-at')}</label>
 
             <figure>
               <input
@@ -135,7 +138,7 @@ export default function ManageAccount() {
           </div>
 
           <button id="delete" onClick={() => setShowDeleteAccount(true)}>
-            Delete
+            {t('delete')}
           </button>
         </main>
       )}

@@ -4,10 +4,35 @@ import Welcome from './Welcome'
 import Register from './Register'
 import Login from './Login'
 import PasswordManager from './PasswordManager'
+import { createContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+export const TranslationContext = createContext()
 
 function App() {
+  const {
+    t,
+    i18n: { changeLanguage, language },
+  } = useTranslation()
+
+  const [currentLanguage, setCurrentLanguage] = useState(
+    localStorage.getItem('lng') || language
+  )
+
+  useEffect(() => {
+    localStorage.setItem('lng', currentLanguage)
+  }, [currentLanguage])
+
+  const handleChangeLanguage = () => {
+    const newLanguage = currentLanguage === 'en' ? 'pt' : 'en'
+    changeLanguage(newLanguage)
+    setCurrentLanguage(newLanguage)
+  }
+
   return (
-    <>
+    <TranslationContext.Provider
+      value={{ t, handleChangeLanguage, currentLanguage }}
+    >
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -19,7 +44,7 @@ function App() {
 
         <Route path="/app" element={<PasswordManager />} />
       </Routes>
-    </>
+    </TranslationContext.Provider>
   )
 }
 

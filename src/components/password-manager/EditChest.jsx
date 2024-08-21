@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
+import { TranslationContext } from '../App'
 
 export default function EditChest() {
   const {
@@ -9,7 +10,10 @@ export default function EditChest() {
     setShowEditChest,
     setShowEditChestFeatures,
     fetchChest,
+    fetchChests,
   } = useContext(PasswordManagerContext)
+
+  const { t } = useContext(TranslationContext)
 
   const [formData, setFormData] = useState({
     name: chest.name,
@@ -52,7 +56,9 @@ export default function EditChest() {
 
       res.json().then(() => {
         fetchChest()
+        fetchChests()
         setShowEditChest(false)
+        setShowEditChestFeatures(true)
       })
     })
   }
@@ -61,12 +67,12 @@ export default function EditChest() {
     <form id="edit-chest" onSubmit={handleOnSubmit} className={theme}>
       {missingFields && (
         <div className="error-message">
-          <span>All required fields must be filled in.</span>
+          <span>{t('all-required-fields')}</span>
         </div>
       )}
 
       <div className="inputs-edit-chest">
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">{t('name')}</label>
 
         <input
           type="text"
@@ -79,12 +85,12 @@ export default function EditChest() {
       </div>
 
       <div className="inputs-edit-chest">
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">{t('description')}</label>
 
         <textarea
           name="description"
           id="description"
-          placeholder="(optional)"
+          placeholder={t('optional')}
           value={formData.description}
           onChange={handleOnChange}
         ></textarea>
@@ -92,16 +98,11 @@ export default function EditChest() {
 
       <div id="buttons">
         <button id="cancel" onClick={() => setShowEditChest(false)}>
-          Cancel
+          {t('cancel')}
         </button>
 
-        <button
-          type="submit"
-          id="edit"
-          onClick={() => setShowEditChestFeatures(true)}
-          className={theme}
-        >
-          Save
+        <button type="submit" id="edit" className={theme}>
+          {t('save')}
         </button>
       </div>
     </form>
