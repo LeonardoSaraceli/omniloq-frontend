@@ -34,7 +34,7 @@ function App() {
       value={{ t, handleChangeLanguage, currentLanguage }}
     >
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Home />} />
 
         <Route path="/welcome" element={<Welcome />} />
 
