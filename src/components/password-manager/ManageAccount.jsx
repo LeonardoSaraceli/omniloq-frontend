@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PasswordManagerContext } from '../PasswordManager'
 import { useContext, useState } from 'react'
 import { TranslationContext } from '../App'
+import truncateString from './truncateString'
 
 export default function ManageAccount() {
   const [showMain, setShowMain] = useState('profile')
@@ -68,7 +69,10 @@ export default function ManageAccount() {
                 name="first_name"
                 id="first_name"
                 disabled
-                value={profile.first_name}
+                value={truncateString(
+                  profile.first_name,
+                  window.innerWidth > 1279 ? 30 : 10
+                )}
               />
 
               <FontAwesomeIcon icon={faLock} className="disabled-icon" />
@@ -84,7 +88,10 @@ export default function ManageAccount() {
                 name="last_name"
                 id="last_name"
                 disabled
-                value={profile.last_name}
+                value={truncateString(
+                  profile.last_name,
+                  window.innerWidth > 1279 ? 30 : 10
+                )}
               />
 
               <FontAwesomeIcon icon={faLock} className="disabled-icon" />
@@ -114,7 +121,10 @@ export default function ManageAccount() {
                 name="email"
                 id="email"
                 disabled
-                value={user.email}
+                value={truncateString(
+                  user.email,
+                  window.innerWidth > 1279 ? 30 : 10
+                )}
               />
 
               <FontAwesomeIcon icon={faLock} className="disabled-icon" />

@@ -86,6 +86,8 @@
     "account": "Account",
     "details": "Details",
     "credentials": "Credentials",
-    "created-at": "Created at"
+    "created-at": "Created at",
+    "view": "View",
+    "chest": "Chest"
   }
 }

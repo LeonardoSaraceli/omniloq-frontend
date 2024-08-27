@@ -32,7 +32,7 @@
     "password-not-match": "A senha não corresponde.",
     "email-already-registered": "E-mail já cadastrado.",
     "all-fields-required": "Todos os campos devem ser preenchidos.",
-    "first-name": "Primeiro nome",
+    "first-name": "Nome",
     "last-name": "Sobrenome",
     "email": "E-mail",
     "password": "Senha",
@@ -86,6 +86,8 @@
     "account": "Conta",
     "details": "Detalhes",
     "credentials": "Credenciais",
-    "created-at": "Criado em"
+    "created-at": "Criado em",
+    "view": "Ver",
+    "chest": "Baú"
   }
 }

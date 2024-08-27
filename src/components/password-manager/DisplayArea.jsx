@@ -191,7 +191,17 @@ export default function DisplayArea() {
   }
 
   return (
-    <section id="display-area" className={theme}>
+    <section
+      id="display-area"
+      className={theme}
+      style={
+        window.innerWidth < 1279
+          ? activeItem > 0 || activeChest > 0
+            ? null
+            : { display: 'none' }
+          : null
+      }
+    >
       {activeItem === 0 && activeChest === 0 && (
         <img src={omniloqLogo} id="app-default-logo" alt="Omniloq logo" />
       )}
@@ -232,7 +242,9 @@ export default function DisplayArea() {
                 className={theme}
               />
 
-              <h2>{truncateString(item.name, 30)}</h2>
+              <h2>
+                {truncateString(item.name, window.innerWidth > 1279 ? 30 : 20)}
+              </h2>
             </div>
 
             <ul>
@@ -240,7 +252,12 @@ export default function DisplayArea() {
                 <li className="element-info">
                   <span>{t('email')}</span>
 
-                  <p>{truncateString(item.email, 40)}</p>
+                  <p>
+                    {truncateString(
+                      item.email,
+                      window.innerWidth > 1279 ? 40 : 25
+                    )}
+                  </p>
                 </li>
               )}
 
@@ -248,7 +265,12 @@ export default function DisplayArea() {
                 <li className="element-info">
                   <span>{t('username')}</span>
 
-                  <p>{truncateString(item.username, 40)}</p>
+                  <p>
+                    {truncateString(
+                      item.username,
+                      window.innerWidth > 1279 ? 40 : 25
+                    )}
+                  </p>
                 </li>
               )}
 
@@ -258,8 +280,16 @@ export default function DisplayArea() {
                 <div id="password">
                   <p>
                     {validShowPasswordToken && item.show_password
-                      ? truncateString(decrypted, 30)
-                      : hidePassword(truncateString(decrypted, 30))}
+                      ? truncateString(
+                          decrypted,
+                          window.innerWidth > 1279 ? 30 : 25
+                        )
+                      : hidePassword(
+                          truncateString(
+                            decrypted,
+                            window.innerWidth > 1279 ? 30 : 25
+                          )
+                        )}
                   </p>
 
                   <FontAwesomeIcon
@@ -318,7 +348,9 @@ export default function DisplayArea() {
                 className={theme}
               />
 
-              <h2>{chest.name}</h2>
+              <h2>
+                {truncateString(chest.name, window.innerWidth > 1279 ? 30 : 20)}
+              </h2>
             </div>
 
             {chest.description && (

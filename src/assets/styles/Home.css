@@ -183,6 +183,7 @@
         justify-content: space-between;
         gap: 18rem;
         cursor: pointer;
+        align-items: center;
       }
 
       span {
@@ -224,6 +225,7 @@
       grid-template-rows: repeat(2, max-content);
       font-size: 16px;
       cursor: pointer;
+      justify-self: center;
 
       #select {
         display: grid;
@@ -262,6 +264,99 @@
       font-size: 42px;
       text-transform: uppercase;
       letter-spacing: 0.4rem;
+    }
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  #home {
+    section {
+      margin: 0 1rem;
+    }
+
+    header {
+      display: none;
+    }
+
+    #first-section {
+      justify-content: center;
+      grid-template-columns: max-content;
+
+      img {
+        display: none;
+      }
+
+      article {
+        width: 300px;
+
+        h1 {
+          font-size: 24px;
+        }
+
+        span,
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+
+    #second-section {
+      h1 {
+        font-size: 24px;
+      }
+
+      ul {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, max-content);
+
+        li {
+          h2 {
+            font-size: 18px;
+          }
+
+          p {
+            font-size: 16px;
+          }
+
+          img {
+            width: 200px;
+            height: 200px;
+          }
+        }
+      }
+    }
+
+    #third-section {
+      h1 {
+        font-size: 21px;
+      }
+
+      article {
+        .summary {
+          gap: 1rem;
+        }
+
+        span {
+          font-size: 18px;
+          width: 300px;
+        }
+
+        .active {
+          p {
+            font-size: 16px;
+            width: 330px;
+          }
+        }
+      }
+    }
+
+    footer {
+      grid-template-columns: max-content;
+      grid-template-rows: repeat(2, max-content);
+
+      h1 {
+        font-size: 24px;
+      }
     }
   }
 }

@@ -10,7 +10,7 @@ export default function MenuAccount() {
   const { t } = useContext(TranslationContext)
 
   return (
-    <div id="menu-account" ref={modalRef}>
+    <div id="menu-account" ref={modalRef} className={theme}>
       <span className={theme} onClick={() => setShowManageAccount(true)}>
         {t('manage-account')}
       </span>

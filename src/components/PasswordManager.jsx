@@ -54,6 +54,7 @@ export default function PasswordManager() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [validShowPasswordToken, setValidShowPasswordToken] = useState(false)
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+  const [showChestCollection, setShowChestCollection] = useState(false)
 
   localStorage.setItem('theme', theme)
 
@@ -312,12 +313,17 @@ export default function PasswordManager() {
       .then((res) => {
         if (!res.ok) {
           setValidShowPasswordToken(false)
+          localStorage.removeItem('pw')
           return
         }
 
         return res.json()
       })
       .then((data) => {
+        if (!data) {
+          return
+        }
+
         setValidShowPasswordToken(data.valid)
       })
   }, [pwToken])
@@ -371,6 +377,8 @@ export default function PasswordManager() {
         validShowPasswordToken,
         theme,
         setTheme,
+        showChestCollection,
+        setShowChestCollection,
       }}
     >
       <div id="password-manager">

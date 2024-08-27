@@ -4,11 +4,18 @@ import { useContext, useState } from 'react'
 import { PasswordManagerContext } from '../PasswordManager'
 import truncateString from './truncateString'
 import { TranslationContext } from '../App'
+import ChestCollection from './ChestCollection'
 
 export default function MainAside() {
-  const { theme, items, setActiveItem, activeCollection } = useContext(
-    PasswordManagerContext
-  )
+  const {
+    theme,
+    items,
+    activeItem,
+    activeChest,
+    setActiveItem,
+    activeCollection,
+    showChestCollection,
+  } = useContext(PasswordManagerContext)
   const [input, setInput] = useState('')
 
   const handleChange = (e) => {
@@ -33,63 +40,89 @@ export default function MainAside() {
   )
 
   return (
-    <aside id="password-manager-main-aside" className={theme}>
-      <div id="search-items" className={theme}>
-        <FontAwesomeIcon icon={faMagnifyingGlass} id="search-icon" />
+    <>
+      <aside
+        id="password-manager-main-aside"
+        className={theme}
+        style={
+          window.innerWidth < 1279
+            ? activeItem > 0 || showChestCollection || activeChest > 0
+              ? { display: 'none' }
+              : null
+            : null
+        }
+      >
+        <div id="search-items" className={theme}>
+          <FontAwesomeIcon icon={faMagnifyingGlass} id="search-icon" />
 
-        <input
-          type="search"
-          placeholder={`${t('search-in')} ${
-            activeCollection === 'All items'
-              ? t('all-items')
-              : activeCollection === 'Favourites'
-              ? t('favourites')
-              : activeCollection
-          }`}
-          className={theme}
-          value={input}
-          onChange={handleChange}
-        />
-      </div>
+          <input
+            type="search"
+            placeholder={`${t('search-in')} ${
+              activeCollection === 'All items'
+                ? t('all-items')
+                : activeCollection === 'Favourites'
+                ? t('favourites')
+                : activeCollection
+            }`}
+            className={theme}
+            value={input}
+            onChange={handleChange}
+          />
+        </div>
 
-      <ul>
-        {activeCollection === 'All items' &&
-          allItemsSearch.map((item) => (
-            <li
-              className={theme}
-              key={item.id}
-              onClick={() => setActiveItem(item.id)}
-            >
-              <FontAwesomeIcon icon={faKey} className="item-icon" id={theme} />
-              <span>{truncateString(item.name, 20)}</span>
-            </li>
-          ))}
+        <ul>
+          {activeCollection === 'All items' &&
+            allItemsSearch.map((item) => (
+              <li
+                className={theme}
+                key={item.id}
+                onClick={() => setActiveItem(item.id)}
+              >
+                <FontAwesomeIcon
+                  icon={faKey}
+                  className="item-icon"
+                  id={theme}
+                />
+                <span>{truncateString(item.name, 20)}</span>
+              </li>
+            ))}
 
-        {activeCollection === 'Favourites' &&
-          favourites.map((item) => (
-            <li
-              className={theme}
-              key={item.id}
-              onClick={() => setActiveItem(item.id)}
-            >
-              <FontAwesomeIcon icon={faKey} className="item-icon" id={theme} />
-              <span>{truncateString(item.name, 20)}</span>
-            </li>
-          ))}
+          {activeCollection === 'Favourites' &&
+            favourites.map((item) => (
+              <li
+                className={theme}
+                key={item.id}
+                onClick={() => setActiveItem(item.id)}
+              >
+                <FontAwesomeIcon
+                  icon={faKey}
+                  className="item-icon"
+                  id={theme}
+                />
+                <span>{truncateString(item.name, 20)}</span>
+              </li>
+            ))}
 
-        {activeCollection !== 'All items' &&
-          activeCollection !== 'Favourites' &&
-          chestItems.map((item) => (
-            <li
-              className={theme}
-              key={item.id}
-              onClick={() => setActiveItem(item.id)}
-            >
-              <FontAwesomeIcon icon={faKey} className="item-icon" id={theme} />
-              <span>{truncateString(item.name, 20)}</span>
-            </li>
-          ))}
-      </ul>
-    </aside>
+          {activeCollection !== 'All items' &&
+            activeCollection !== 'Favourites' &&
+            chestItems.map((item) => (
+              <li
+                className={theme}
+                key={item.id}
+                onClick={() => setActiveItem(item.id)}
+              >
+                <FontAwesomeIcon
+                  icon={faKey}
+                  className="item-icon"
+                  id={theme}
+                />
+                <span>{truncateString(item.name, 20)}</span>
+              </li>
+            ))}
+        </ul>
+      </aside>
+
+      {window.innerWidth < 1279 && showChestCollection && <ChestCollection />}
+    </>
   )
 }

@@ -5,6 +5,7 @@
   height: 100vh;
 
   aside {
+    display: grid;
     padding: 2rem;
     background-color: #f4f4f4;
 
@@ -13,6 +14,7 @@
       grid-template-rows: repeat(2, max-content);
       font-size: 16px;
       cursor: pointer;
+      justify-self: left;
 
       #select {
         display: grid;
@@ -22,7 +24,6 @@
         border: 1px solid #303136;
         border-radius: 0.25rem;
         background-color: transparent;
-        padding: 0.5rem 2rem 0.5rem 0.5rem;
         width: 150px;
         padding: 0.5rem 1rem;
       }
@@ -188,5 +189,164 @@
 
   img {
     height: 100px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #stepper {
+    grid-template-rows: 25% 75%;
+    grid-template-columns: 1fr;
+
+    aside {
+      padding: 1rem;
+
+      #languages {
+        font-size: 14px;
+
+        #select {
+          width: 125px;
+        }
+
+        #option {
+          width: 125px;
+        }
+      }
+    }
+
+    #logo-stepper {
+      grid-row: 1 / 2;
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, -50%);
+    }
+
+    img {
+      height: 50px;
+    }
+
+    #welcome-section {
+      #welcome-message {
+        h1 {
+          font-size: 18px;
+        }
+
+        h2 {
+          font-size: 24px;
+        }
+      }
+
+      button {
+        padding: 0.5rem;
+
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+
+    #register-section,
+    #login-section {
+      gap: 1rem;
+
+      h1 {
+        font-size: 24px;
+      }
+
+      form {
+        justify-content: center;
+        width: max-content;
+        gap: 1rem;
+
+        input {
+          padding: 0.5rem;
+        }
+
+        input::placeholder {
+          font-size: 14px;
+        }
+
+        #full-name-input {
+          gap: 1rem;
+          grid-template-columns: repeat(2, 100px);
+        }
+
+        button {
+          padding: 0.5rem 1rem;
+          font-size: 14px;
+        }
+      }
+    }
+
+    #login-section {
+      input {
+        width: 200px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1279px) and (min-width: 321px) {
+  #stepper {
+    grid-template-rows: 25% 75%;
+    grid-template-columns: 1fr;
+
+    #logo-stepper {
+      grid-row: 1 / 2;
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translate(-50%, -50%);
+    }
+
+    img {
+      height: 60px;
+    }
+
+    #welcome-section {
+      #welcome-message {
+        h1 {
+          font-size: 21px;
+        }
+
+        h2 {
+          font-size: 28px;
+        }
+      }
+
+      button {
+        padding: 0.5rem;
+
+        span {
+          font-size: 16px;
+        }
+      }
+    }
+
+    #register-section,
+    #login-section {
+      h1 {
+        font-size: 28px;
+      }
+
+      form {
+        justify-content: center;
+        width: max-content;
+
+        #full-name-input {
+          grid-template-columns: repeat(2, 160px);
+        }
+
+        button {
+          font-size: 16px;
+        }
+      }
+    }
+
+    #login-section {
+      input {
+        width: 320px;
+      }
+    }
   }
 }
