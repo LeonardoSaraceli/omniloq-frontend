@@ -5,7 +5,7 @@ import { TranslationContext } from '../App'
 export default function ConfirmPassword() {
   const { token, setShowConfirmPassword } = useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [password, setPassword] = useState('')
 
@@ -22,7 +22,7 @@ export default function ConfirmPassword() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch('http://localhost:3030/users/create-pw-token', {
+    fetch(`${apiUrl}users/create-pw-token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

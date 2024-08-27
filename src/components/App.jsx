@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next'
 export const TranslationContext = createContext()
 
 function App() {
+  const apiUrl = import.meta.env.VITE_API_URL
+
   const {
     t,
     i18n: { changeLanguage, language },
@@ -31,7 +33,7 @@ function App() {
 
   return (
     <TranslationContext.Provider
-      value={{ t, handleChangeLanguage, currentLanguage }}
+      value={{ t, handleChangeLanguage, currentLanguage, apiUrl }}
     >
       <Routes>
         <Route path="*" element={<Home />} />

@@ -9,7 +9,7 @@ export default function CreateTicket() {
     PasswordManagerContext
   )
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [formData, setFormData] = useState({
     title: '',
@@ -28,7 +28,7 @@ export default function CreateTicket() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch('http://localhost:3030/tickets/', {
+    fetch(`${apiUrl}tickets/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

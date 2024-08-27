@@ -9,7 +9,7 @@ export default function CreateChest() {
     PasswordManagerContext
   )
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [formData, setFormData] = useState({
     name: '',
@@ -28,7 +28,7 @@ export default function CreateChest() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch('http://localhost:3030/chests/', {
+    fetch(`${apiUrl}chests/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

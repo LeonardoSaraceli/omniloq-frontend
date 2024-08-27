@@ -7,7 +7,7 @@ export default function AddWebsite() {
     PasswordManagerContext
   )
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [url, setUrl] = useState('')
 
@@ -18,7 +18,7 @@ export default function AddWebsite() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch('http://localhost:3030/websites/', {
+    fetch(`${apiUrl}websites/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

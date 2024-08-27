@@ -13,10 +13,10 @@ export default function DeleteChest() {
     setActiveCollection,
   } = useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const handleDeleteChest = () => {
-    fetch(`http://localhost:3030/chests/${chest.id}`, {
+    fetch(`${apiUrl}chests/${chest.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

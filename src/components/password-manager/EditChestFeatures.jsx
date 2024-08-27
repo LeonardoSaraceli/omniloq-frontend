@@ -16,10 +16,10 @@ export default function EditChestFeatures() {
     fetchItems,
   } = useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const handleItemRemove = (itemId) => {
-    fetch(`http://localhost:3030/chests/remove-item/${itemId}`, {
+    fetch(`${apiUrl}chests/remove-item/${itemId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

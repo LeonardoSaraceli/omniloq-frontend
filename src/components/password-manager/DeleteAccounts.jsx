@@ -8,12 +8,12 @@ export default function DeleteAccount() {
     PasswordManagerContext
   )
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const navigate = useNavigate()
 
   const handleDeleteAccount = () => {
-    fetch('http://localhost:3030/users/', {
+    fetch(`${apiUrl}users/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

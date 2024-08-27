@@ -6,7 +6,7 @@ export default function EditProfile() {
   const { theme, token, profile, setShowEditProfile, fetchProfile } =
     useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [formData, setFormData] = useState({
     first_name: profile.first_name,
@@ -25,7 +25,7 @@ export default function EditProfile() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch('http://localhost:3030/profile/', {
+    fetch(`${apiUrl}profile/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -6,10 +6,10 @@ export default function DeleteItem() {
   const { theme, item, token, setShowDeleteItem, fetchItems, setActiveItem } =
     useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const handleDeleteItem = () => {
-    fetch(`http://localhost:3030/items/${item.id}`, {
+    fetch(`${apiUrl}items/${item.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

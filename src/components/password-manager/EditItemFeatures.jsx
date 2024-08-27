@@ -17,10 +17,10 @@ export default function EditItemFeatures() {
     fetchItems,
   } = useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const handleWebsiteDelete = (websiteId) => {
-    fetch(`http://localhost:3030/websites/${websiteId}`, {
+    fetch(`${apiUrl}websites/${websiteId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export default function EditItemFeatures() {
   }
 
   const handleChestRemove = (chestId) => {
-    fetch(`http://localhost:3030/chests/remove-item/${item.id}`, {
+    fetch(`${apiUrl}chests/remove-item/${item.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

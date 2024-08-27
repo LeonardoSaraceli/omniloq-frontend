@@ -9,7 +9,7 @@ export default function CreateItem() {
     PasswordManagerContext
   )
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [missingFields, setMissingFields] = useState(false)
 
@@ -34,7 +34,7 @@ export default function CreateItem() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch('http://localhost:3030/items/', {
+    fetch(`${apiUrl}items/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

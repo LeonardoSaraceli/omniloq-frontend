@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { TranslationContext } from './App'
 
 export default function Register() {
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [missingFields, setMissingFields] = useState(false)
   const [existingEmail, setExistingEmail] = useState(false)
@@ -43,7 +43,7 @@ export default function Register() {
       return
     }
 
-    fetch('http://localhost:3030/users/register', {
+    fetch(`${apiUrl}users/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

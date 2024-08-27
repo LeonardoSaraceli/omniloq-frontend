@@ -1,7 +1,7 @@
 import Aside from './password-manager/Aside'
 import Main from './password-manager/Main'
 import '../assets/styles/PasswordManager.css'
-import { createContext, useState, useEffect, useCallback, useRef } from 'react'
+import { createContext, useState, useEffect, useCallback, useRef, useContext } from 'react'
 import EditItem from './password-manager/EditItem'
 import { useNavigate } from 'react-router-dom'
 import DeleteItem from './password-manager/DeleteItem'
@@ -20,10 +20,13 @@ import ManageAccount from './password-manager/ManageAccount'
 import EditProfile from './password-manager/EditProfile'
 import DeleteAccount from './password-manager/DeleteAccounts'
 import ConfirmPassword from './password-manager/ConfirmPassword'
+import { TranslationContext } from './App'
 
 export const PasswordManagerContext = createContext()
 
 export default function PasswordManager() {
+  const { apiUrl } = useContext(TranslationContext)
+
   const [user, setUser] = useState({})
   const [profile, setProfile] = useState({})
   const [chests, setChests] = useState([])
@@ -67,7 +70,7 @@ export default function PasswordManager() {
   const pwToken = localStorage.getItem('pw')
 
   useEffect(() => {
-    fetch('http://localhost:3030/chests/', {
+    fetch(`${apiUrl}chests/`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -81,10 +84,10 @@ export default function PasswordManager() {
         return res.json()
       })
       .then((data) => setChests(data.chests))
-  }, [token, navigate])
+  }, [token, navigate, apiUrl])
 
   useEffect(() => {
-    fetch('http://localhost:3030/items/', {
+    fetch(`${apiUrl}items/`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -96,10 +99,10 @@ export default function PasswordManager() {
         return res.json()
       })
       .then((data) => setItems(data.items))
-  }, [navigate, token])
+  }, [apiUrl, navigate, token])
 
   const fetchItems = useCallback(() => {
-    fetch('http://localhost:3030/items/', {
+    fetch(`${apiUrl}items/`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -110,14 +113,14 @@ export default function PasswordManager() {
         return res.json()
       })
       .then((data) => setItems(data.items))
-  }, [token, navigate])
+  }, [apiUrl, token, navigate])
 
   useEffect(() => {
     fetchItems()
   }, [fetchItems])
 
   const fetchChests = useCallback(() => {
-    fetch('http://localhost:3030/chests/', {
+    fetch(`${apiUrl}chests/`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -131,7 +134,7 @@ export default function PasswordManager() {
         return res.json()
       })
       .then((data) => setChests(data.chests))
-  }, [navigate, token])
+  }, [apiUrl, navigate, token])
 
   useEffect(() => {
     fetchChests()
@@ -142,7 +145,7 @@ export default function PasswordManager() {
       return
     }
 
-    fetch('http://localhost:3030/decrypt/', {
+    fetch(`${apiUrl}decrypt/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -154,14 +157,14 @@ export default function PasswordManager() {
     })
       .then((res) => res.json())
       .then((data) => setDecrypted(data.decrypted))
-  }, [item, item.password, token])
+  }, [apiUrl, item, item.password, token])
 
   const fetchItem = useCallback(() => {
     if (activeItem === 0) {
       return
     }
 
-    fetch(`http://localhost:3030/items/${activeItem}`, {
+    fetch(`${apiUrl}items/${activeItem}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -174,7 +177,7 @@ export default function PasswordManager() {
       .then((data) => {
         setItem(data.item)
       })
-  }, [activeItem, token])
+  }, [activeItem, apiUrl, token])
 
   useEffect(() => {
     fetchItem()
@@ -185,7 +188,7 @@ export default function PasswordManager() {
       return
     }
 
-    fetch(`http://localhost:3030/chests/${activeChest}`, {
+    fetch(`${apiUrl}chests/${activeChest}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -199,7 +202,7 @@ export default function PasswordManager() {
         return res.json()
       })
       .then((data) => setChest(data.chest))
-  }, [activeChest, token])
+  }, [activeChest, apiUrl, token])
 
   useEffect(() => {
     fetchChest()
@@ -218,7 +221,7 @@ export default function PasswordManager() {
   }, [activeChest])
 
   useEffect(() => {
-    fetch('http://localhost:3030/users/', {
+    fetch(`${apiUrl}users/`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -232,10 +235,10 @@ export default function PasswordManager() {
         return res.json()
       })
       .then((data) => setUser(data.user))
-  }, [token])
+  }, [apiUrl, token])
 
   useEffect(() => {
-    fetch('http://localhost:3030/profile/', {
+    fetch(`${apiUrl}profile/`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -249,10 +252,10 @@ export default function PasswordManager() {
         return res.json()
       })
       .then((data) => setProfile(data.profile))
-  }, [token])
+  }, [apiUrl, token])
 
   const fetchProfile = useCallback(() => {
-    fetch('http://localhost:3030/profile/', {
+    fetch(`${apiUrl}profile/`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -266,7 +269,7 @@ export default function PasswordManager() {
         return res.json()
       })
       .then((data) => setProfile(data.profile))
-  }, [token])
+  }, [apiUrl, token])
 
   useEffect(() => {
     fetchProfile()
@@ -304,7 +307,7 @@ export default function PasswordManager() {
       return
     }
 
-    fetch('http://localhost:3030/users/verify-token', {
+    fetch(`${apiUrl}users/verify-token`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${pwToken}`,
@@ -326,7 +329,7 @@ export default function PasswordManager() {
 
         setValidShowPasswordToken(data.valid)
       })
-  }, [pwToken])
+  }, [apiUrl, pwToken])
 
   return (
     <PasswordManagerContext.Provider

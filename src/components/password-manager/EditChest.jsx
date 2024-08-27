@@ -13,7 +13,7 @@ export default function EditChest() {
     fetchChests,
   } = useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [formData, setFormData] = useState({
     name: chest.name,
@@ -38,7 +38,7 @@ export default function EditChest() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch(`http://localhost:3030/chests/${chest.id}`, {
+    fetch(`${apiUrl}chests/${chest.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

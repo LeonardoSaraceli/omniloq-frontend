@@ -38,14 +38,14 @@ export default function DisplayArea() {
     theme,
   } = useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   useEffect(() => {
     if (activeItem === 0) {
       return
     }
 
-    fetch(`http://localhost:3030/items/${activeItem}`, {
+    fetch(`${apiUrl}items/${activeItem}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -61,14 +61,14 @@ export default function DisplayArea() {
       .then((data) => {
         setItem(data.item)
       })
-  }, [activeItem, setItem, token])
+  }, [activeItem, apiUrl, setItem, token])
 
   const handleFavoriteItem = () => {
     if (!item.id) {
       return
     }
 
-    fetch(`http://localhost:3030/items/favorite/${item.id}`, {
+    fetch(`${apiUrl}items/favorite/${item.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export default function DisplayArea() {
       return
     }
 
-    fetch(`http://localhost:3030/items/unfavorite/${item.id}`, {
+    fetch(`${apiUrl}items/unfavorite/${item.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ export default function DisplayArea() {
       return
     }
 
-    fetch(`http://localhost:3030/chests/${activeChest}`, {
+    fetch(`${apiUrl}chests/${activeChest}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
@@ -140,14 +140,14 @@ export default function DisplayArea() {
         return res.json()
       })
       .then((data) => setChest(data.chest))
-  }, [activeChest, setChest, token])
+  }, [activeChest, apiUrl, setChest, token])
 
   const handleShowPassword = () => {
     if (!item) {
       return
     }
 
-    fetch(`http://localhost:3030/items/show-password/${item.id}`, {
+    fetch(`${apiUrl}items/show-password/${item.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ export default function DisplayArea() {
       return
     }
 
-    fetch(`http://localhost:3030/items/hide-password/${item.id}`, {
+    fetch(`${apiUrl}items/hide-password/${item.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

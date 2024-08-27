@@ -13,7 +13,7 @@ export default function AddFromChest() {
     fetchChest,
   } = useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const itemsAvailables = items.filter(
     (item) => !chest.items.some((chestItem) => chestItem.id === item.id)
@@ -30,7 +30,7 @@ export default function AddFromChest() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch(`http://localhost:3030/chests/add-item/${itemId}`, {
+    fetch(`${apiUrl}chests/add-item/${itemId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

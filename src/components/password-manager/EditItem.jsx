@@ -13,7 +13,7 @@ export default function EditItem() {
     fetchItem,
   } = useContext(PasswordManagerContext)
 
-  const { t } = useContext(TranslationContext)
+  const { t, apiUrl } = useContext(TranslationContext)
 
   const [missingFields, setMissingFields] = useState(false)
 
@@ -40,7 +40,7 @@ export default function EditItem() {
   const handleOnSubmit = (e) => {
     e.preventDefault()
 
-    fetch(`http://localhost:3030/items/edit/${item.id}`, {
+    fetch(`${apiUrl}items/edit/${item.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
