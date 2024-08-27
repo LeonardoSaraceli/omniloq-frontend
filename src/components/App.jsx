@@ -36,8 +36,6 @@ function App() {
       value={{ t, handleChangeLanguage, currentLanguage, apiUrl }}
     >
       <Routes>
-        <Route path="*" element={<Home />} />
-
         <Route path="/welcome" element={<Welcome />} />
 
         <Route path="/register" element={<Register />} />
@@ -45,6 +43,8 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/app" element={<PasswordManager />} />
+
+        <Route path="*" element={<Home />} />
       </Routes>
     </TranslationContext.Provider>
   )
