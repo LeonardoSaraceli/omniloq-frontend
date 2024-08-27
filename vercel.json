@@ -1,29 +1,12 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "src/index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "src/**/*.js",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    }
-  ],
   "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
-  "env": {
-    "VITE_API_URL": "@vite_api_url"
-  }
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/welcome", "dest": "/index.html" },
+    { "src": "/register", "dest": "/index.html" },
+    { "src": "/login", "dest": "/index.html" },
+    { "src": "/app", "dest": "/index.html" },
+    { "src": "/static/(.*)", "dest": "/static/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
 }
