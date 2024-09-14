@@ -245,7 +245,6 @@ export default function PasswordManager() {
   }, [apiUrl, token])
 
   useEffect(() => {
-    console.log('Fetching profile data...')
     fetch(`${apiUrl}profile/`, {
       headers: {
         'Content-Type': 'application/json',
@@ -253,20 +252,13 @@ export default function PasswordManager() {
       },
     })
       .then((res) => {
-        console.log('Profile fetch response status:', res.status)
         if (!res.ok) {
-          console.error(`Failed to load profile: ${res.status}`)
           return
         }
+
         return res.json()
       })
-      .then((data) => {
-        console.log('Profile data:', data)
-        setProfile(data.profile)
-      })
-      .catch((error) => {
-        console.error('Error fetching profile:', error)
-      })
+      .then((data) => setProfile(data.profile))
   }, [apiUrl, token])
 
   const fetchProfile = useCallback(() => {
