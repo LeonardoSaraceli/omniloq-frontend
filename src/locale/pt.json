@@ -88,6 +88,8 @@
     "credentials": "Credenciais",
     "created-at": "Criado em",
     "view": "Ver",
-    "chest": "Baú"
+    "chest": "Baú",
+    "warning": "Aviso",
+    "warning-description": "O nosso servidor demora em torno de 2 minutos para carregar, por favor aguarde."
   }
 }

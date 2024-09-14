@@ -2,9 +2,11 @@ import { useContext, useState } from 'react'
 import Stepper from './Stepper'
 import { useNavigate } from 'react-router-dom'
 import { TranslationContext } from './App'
+import WarningToast from './WarningToast'
 
 export default function Login() {
-  const { t, apiUrl } = useContext(TranslationContext)
+  const { t, apiUrl, warningToast, setWarningToast } =
+    useContext(TranslationContext)
 
   const [incorrectLogin, setIncorrectLogin] = useState(false)
 
@@ -56,6 +58,8 @@ export default function Login() {
   return (
     <Stepper>
       <section id="login-section">
+        {warningToast && <WarningToast setWarningToast={setWarningToast} />}
+
         <h1>{t('sign-in')}</h1>
 
         {incorrectLogin && (

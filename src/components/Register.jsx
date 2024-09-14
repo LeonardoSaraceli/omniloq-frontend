@@ -2,9 +2,10 @@ import { useContext, useState } from 'react'
 import Stepper from './Stepper'
 import { useNavigate } from 'react-router-dom'
 import { TranslationContext } from './App'
+import WarningToast from './WarningToast'
 
 export default function Register() {
-  const { t, apiUrl } = useContext(TranslationContext)
+  const { t, apiUrl, warningToast, setWarningToast } = useContext(TranslationContext)
 
   const [missingFields, setMissingFields] = useState(false)
   const [existingEmail, setExistingEmail] = useState(false)
@@ -70,6 +71,8 @@ export default function Register() {
   return (
     <Stepper>
       <section id="register-section">
+        {warningToast && <WarningToast setWarningToast={setWarningToast} />}
+
         <h1>{t('sign-up')}</h1>
 
         {!passwordMatch && (

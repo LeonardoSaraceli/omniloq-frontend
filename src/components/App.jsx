@@ -17,6 +17,8 @@ function App() {
     i18n: { changeLanguage, language },
   } = useTranslation()
 
+  const [warningToast, setWarningToast] = useState(true)
+
   const [currentLanguage, setCurrentLanguage] = useState(
     localStorage.getItem('lng') || language
   )
@@ -33,7 +35,14 @@ function App() {
 
   return (
     <TranslationContext.Provider
-      value={{ t, handleChangeLanguage, currentLanguage, apiUrl }}
+      value={{
+        t,
+        handleChangeLanguage,
+        currentLanguage,
+        apiUrl,
+        warningToast,
+        setWarningToast,
+      }}
     >
       <Routes>
         <Route path="/welcome" element={<Welcome />} />

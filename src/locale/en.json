@@ -88,6 +88,8 @@
     "credentials": "Credentials",
     "created-at": "Created at",
     "view": "View",
-    "chest": "Chest"
+    "chest": "Chest",
+    "warning": "Warning",
+    "warning-description": "Our server takes around 2 minutes to load, please wait."
   }
 }
