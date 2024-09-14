@@ -18,10 +18,14 @@ export default function Account() {
     >
       <FontAwesomeIcon icon={faUser} id="avatar" className={theme} />
 
-      <span>{`${truncateString(
-        `${profile.first_name} ${profile.last_name}`,
-        13
-      )}`}</span>
+      <span>
+        {profile && profile.first_name && profile.last_name
+          ? `${truncateString(
+              `${profile.first_name} ${profile.last_name}`,
+              13
+            )}`
+          : 'Loading...'}
+      </span>
 
       <FontAwesomeIcon
         icon={showMenuAccount ? faAngleDown : faAngleUp}
