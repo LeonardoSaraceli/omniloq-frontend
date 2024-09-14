@@ -1,7 +1,14 @@
 import Aside from './password-manager/Aside'
 import Main from './password-manager/Main'
 import '../assets/styles/PasswordManager.css'
-import { createContext, useState, useEffect, useCallback, useRef, useContext } from 'react'
+import {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useContext,
+} from 'react'
 import EditItem from './password-manager/EditItem'
 import { useNavigate } from 'react-router-dom'
 import DeleteItem from './password-manager/DeleteItem'
@@ -238,6 +245,7 @@ export default function PasswordManager() {
   }, [apiUrl, token])
 
   useEffect(() => {
+    console.log('Fetching profile data...')
     fetch(`${apiUrl}profile/`, {
       headers: {
         'Content-Type': 'application/json',
@@ -245,13 +253,20 @@ export default function PasswordManager() {
       },
     })
       .then((res) => {
+        console.log('Profile fetch response status:', res.status)
         if (!res.ok) {
+          console.error(`Failed to load profile: ${res.status}`)
           return
         }
-
         return res.json()
       })
-      .then((data) => setProfile(data.profile))
+      .then((data) => {
+        console.log('Profile data:', data)
+        setProfile(data.profile)
+      })
+      .catch((error) => {
+        console.error('Error fetching profile:', error)
+      })
   }, [apiUrl, token])
 
   const fetchProfile = useCallback(() => {
